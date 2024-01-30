@@ -3,11 +3,11 @@
 namespace WCPaymentLink\Controllers;
 
 class Menus {
-    
+
     private function defineMenus(): array
     {
         return [
-            ['Settings', __('About me', 'wc-plugin-template')]
+            ['Settings', __('Payment Links', 'wc-payment-link')]
         ];
     }
 
@@ -57,25 +57,14 @@ class Menus {
 
     private function createMenus(array $menus): void
     {
-        add_menu_page(
-            wplConfig()->pluginNamespace(),
-            wplConfig()->pluginNamespace(),
-            'read',
-            wplConfig()->pluginSlug(),
-            false,
-            'dashicons-carrot'
-        );
-        
-        foreach ( $menus as $menu ) {
+        foreach ($menus as $menu) {
             add_submenu_page(
-                wplConfig()->pluginSlug() ,
+                'woocommerce',
                 $menu['title'],
                 $menu['title'],
-                'manage_options',
+                'manage_woocommerce',
                 $menu['slug'],
-                $menu['function'],
-                $menu['position']
-            );
+                $menu['function']);
         }
 
         ## Remove default submenu

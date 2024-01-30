@@ -8,9 +8,6 @@
       "issues": "https://github.com/devaguia/wc-payment-link/issues",
       "source": "https://github.com/devaguia/wc-payment-link"
     },
-    "scripts": {
-      "test": "./vendor/bin/pest"
-    },
     "keywords": [
       "wordpress",
       "plugin",
@@ -31,14 +28,9 @@
         "app/Helpers/Helper.php"
       ]
     },
-    "require-dev": {
-      "pestphp/pest": "^2.9",
-      "pestphp/pest-plugin-faker": "^2.0"
-    },
     "config": {
       "allow-plugins": {
         "pestphp/pest-plugin": true
       }
     }
   }
-  

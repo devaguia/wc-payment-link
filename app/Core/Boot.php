@@ -5,7 +5,7 @@ namespace WCPaymentLink\Core;
 class Boot
 {
     public function __construct()
-    {   
+    {
         add_action('init', [
             new Functions,
             'initialize'
@@ -39,7 +39,7 @@ class Boot
         add_action('plugin_action_links', [
             new Functions,
             'setSettingsLink'
-        ]);
+        ], 10, 2);
 
         add_action('rest_api_init', [
             new Functions,

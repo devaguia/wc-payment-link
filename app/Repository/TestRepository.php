@@ -1,10 +1,10 @@
 <?php
 
-namespace WCPaymentLink\Model\Repository;
+namespace WCPaymentLink\Repository;
 
-use WCPaymentLink\Model\Infrastructure\Entity;
-use WCPaymentLink\Model\Infrastructure\Repository;
-use WCPaymentLink\Model\Infrastructure\TestEntity;
+use WCPaymentLink\Model\TestEntity;
+use WCPaymentLink\Infrastructure\Model;
+use WCPaymentLink\Infrastructure\Repository;
 
 class TestRepository extends Repository
 {
@@ -24,7 +24,7 @@ class TestRepository extends Repository
 		return $entity;
 	}
 
-	public function remove(Entity|TestEntity $entity): bool
+	public function remove(Model|TestEntity $entity): bool
 	{
 		if (!$entity->getId()) {
 			return false;
@@ -42,7 +42,7 @@ class TestRepository extends Repository
 		return true;
 	}
 
-	protected function getEntityData(Entity|TestEntity $entity): array
+	protected function getEntityData(Model|TestEntity $entity): array
 	{
 		return [
 			'label' => $entity->getLabel()

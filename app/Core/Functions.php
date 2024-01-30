@@ -3,8 +3,8 @@
 namespace WCPaymentLink\Core;
 
 use WCPaymentLink\API\Routes;
-use WCPaymentLink\Services\WooCommerce\WooCommerce;
 use WCPaymentLink\Controllers\Menus;
+use WCPaymentLink\Services\WooCommerce\WooCommerce;
 
 class Functions
 {
@@ -51,7 +51,7 @@ class Functions
     public function activationFunction(string $plugin): void
     {
         if (wplConfig()->baseFile() === $plugin) {
-            $boot = new \WCPaymentLink\Model\Bootstrap();
+            $boot = new \WCPaymentLink\Infrastructure\Bootstrap();
             $boot->initialize();
         }
     }

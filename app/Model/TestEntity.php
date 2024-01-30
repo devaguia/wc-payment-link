@@ -1,10 +1,10 @@
 <?php
 
-namespace WCPaymentLink\Model\Infrastructure;
+namespace WCPaymentLink\Model;
 
-use WCPaymentLink\Model\Infrastructure\Entity;
+use WCPaymentLink\Infrastructure\Model;
 
-class TestEntity extends Entity
+class TestEntity extends Model
 {
 	private ?int $id = null;
 

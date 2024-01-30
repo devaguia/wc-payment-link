@@ -27,10 +27,3 @@ if (version_compare(phpversion(), '7.4') < 0) {
 }
 
 new WCPaymentLink\Core\Boot;
-
-
-defined('ABSPATH') || exit;
-
-if (!function_exists('add_action')) {
-    exit;
-}

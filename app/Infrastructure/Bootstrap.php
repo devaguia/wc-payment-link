@@ -1,8 +1,8 @@
 <?php
 
-namespace WCPaymentLink\Model;
+namespace WCPaymentLink\Infrastructure;
 
-use WCPaymentLink\Model\Infrastructure\TestEntity;
+use WCPaymentLink\Model\TestEntity;
 
 class Bootstrap
 {

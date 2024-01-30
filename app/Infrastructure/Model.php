@@ -1,8 +1,8 @@
 <?php
 
-namespace WCPaymentLink\Model\Infrastructure;
+namespace WCPaymentLink\Infrastructure;
 
-abstract class Entity
+abstract class Model
 {
 	private \DateTime $updatedAt;
 	private \DateTime $createdAt;

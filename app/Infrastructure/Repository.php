@@ -1,8 +1,6 @@
 <?php
 
-namespace WCPaymentLink\Model\Infrastructure;
-
-use WCPaymentLink\Model\Infrastructure\Entity;
+namespace WCPaymentLink\Infrastructure;
 
 abstract class Repository
 {
@@ -63,7 +61,7 @@ abstract class Repository
         return $this->db->get_results($query);
     }
 
-	public function save(Entity $entity): bool
+	public function save(Model $entity): bool
 	{
 		if (method_exists($entity, 'getId') && $entity->getId()) {
 			$query = $this->update($this->getEntityData($entity), ['id' => $entity->getId()]);
@@ -135,7 +133,7 @@ abstract class Repository
 		return [];
 	}
 
-	public function findById(int $id): Entity | bool
+	public function findById(int $id): Model | bool
 	{
 		$result = $this->query("SELECT * FROM {$this->table} WHERE id = {$id};");
 
@@ -151,9 +149,9 @@ abstract class Repository
 		}
 	}
 
-	abstract protected function getEntityData(Entity $entity): array;
+	abstract protected function getEntityData(Model $entity): array;
 
-	abstract public function remove(Entity $entity): bool;
+	abstract public function remove(Model $entity): bool;
 
 	abstract protected function fill(\stdClass $row);
 }
