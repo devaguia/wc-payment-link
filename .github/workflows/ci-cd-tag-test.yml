@@ -2,13 +2,13 @@ name: Generate github stage tag
 
 on:
   push:
-    branches: ["stage"]
+    branches: [stage]
   pull_request:
-    branches: ["stage"]
+    branches: [stage]
 
 jobs:
   build:
-    if: "!contains(github.event.head_commit.message, '--skip-tagging')"
+    if: "contains(github.event.head_commit.message, '--realease')"
 
     runs-on: ubuntu-latest
 
