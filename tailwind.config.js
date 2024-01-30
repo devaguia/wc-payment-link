@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./assets/**/*.js",
-    "./app/Views/**/**/*.php",
+    "./app/Views/**/**/**/*.php",
   ],
   darkMode: 'class',
   theme: {
