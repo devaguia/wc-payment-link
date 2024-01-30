@@ -1,0 +1,44 @@
+{
+    "name": "devaguia/wc-payment-link",
+    "version": "1.0.0",
+    "description": "Initial setup for wordpress plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0",
+    "support": {
+      "issues": "https://github.com/devaguia/wc-payment-link/issues",
+      "source": "https://github.com/devaguia/wc-payment-link"
+    },
+    "scripts": {
+      "test": "./vendor/bin/pest"
+    },
+    "keywords": [
+      "wordpress",
+      "plugin",
+      "template",
+      "woocommerce"
+    ],
+    "authors": [
+      {
+        "name": "Matheus Aguiar",
+        "email": "aguiartgv@gmail.com"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "WCPaymentLink\\": "app/"
+      },
+      "files": [
+        "app/Helpers/Helper.php"
+      ]
+    },
+    "require-dev": {
+      "pestphp/pest": "^2.9",
+      "pestphp/pest-plugin-faker": "^2.0"
+    },
+    "config": {
+      "allow-plugins": {
+        "pestphp/pest-plugin": true
+      }
+    }
+  }
+  

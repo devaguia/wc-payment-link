@@ -1,0 +1,28 @@
+{
+  "name": "wc-payment-link",
+  "version": "1.0.0",
+  "description": "Initial setup for wordpress plugin",
+  "repository": "https://github.com/devaguia/wc-payment-link",
+  "author": "Matheus Aguiar",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.9.3",
+    "autoprefixer": "^10.4.14",
+    "imask": "7.1.3",
+    "node-wp-i18n": "1.2.7",
+    "parcel": "2.9.3",
+    "postcss-loader": "7.3.3",
+    "postcss-modules": "6.0.0",
+    "sass": "1.64.1",
+    "tailwindcss": "^3.3.5",
+    "webpack": "5.88.2",
+    "webpack-cli": "5.1.4"
+  },
+  "scripts": {
+    "build": "parcel build ./assets/scripts/**/pages/**/*.ts ./assets/styles/**/pages/**/*.scss --public-url ./ && npx tailwindcss -i ./assets/styles/app.css -o ./dist/app.css",
+    "watch": "npx tailwindcss -i ./assets/styles/app.css -o ./dist/app.css --watch",
+    "dev": "parcel watch ./assets/scripts/**/pages/**/*.ts ./assets/styles/**/pages/**/*.scss --public-url ./ && npx tailwindcss -i ./assets/styles/app.css -o ./dist/app.css --watch",
+    "i18n:textdomain": "wpi18n addtextdomain --exclude=dist,node_modules,assets,tests,vendor",
+    "i18n:pot": "wpi18n makepot --exclude=dist,node_modules,assets,tests,vendor"
+  }
+}
