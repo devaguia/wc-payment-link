@@ -83,7 +83,7 @@ $links = [
                         <?= esc_html($link['expire_at']) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <?= esc_html($link['token']) ?>
+                        <a href="#" class="text-blue-400"><?= esc_html($link['token']) ?></a>
                     </td>
                     <td class="px-6 py-4">
                         <?= esc_html($link['cart_total']) ?>
@@ -125,3 +125,5 @@ $links = [
         </div>
     <?php endif; ?>
 </div>
+
+<?php wplUtils()->includeTemplatePart(__DIR__ . '/edit.php'); ?>
