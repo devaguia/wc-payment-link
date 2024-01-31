@@ -2,7 +2,7 @@
 
 namespace WCPaymentLink\Infrastructure;
 
-use WCPaymentLink\Model\TestEntity;
+use WCPaymentLink\Repository\LinkRepository;
 
 class Bootstrap
 {
@@ -11,7 +11,7 @@ class Bootstrap
 	public function __construct()
 	{
 		$this->tables = [
-			TestEntity::class,
+            LinkRepository::class,
 		];
 	}
 

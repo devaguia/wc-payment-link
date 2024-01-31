@@ -3,6 +3,7 @@
 namespace WCPaymentLink\Controllers\Menus;
 
 use WCPaymentLink\Controllers\Render\AbstractRender;
+use WCPaymentLink\Repository\LinkRepository;
 use WP_Query;
 
 class Settings extends AbstractRender
@@ -30,10 +31,23 @@ class Settings extends AbstractRender
         }
     }
 
+    public function getLinks(): void
+    {
+        $this->fields['links'] = [];
+
+        $linkRepository = new LinkRepository();
+        $links = $linkRepository->findAll(fill: true);
+
+        if (isset($links['rows'])) {
+            $this->fields['links'] = $links['rows'];
+        }
+    }
+
     public function request(): void
     {
         $this->enqueue();
         $this->getProducts();
+        $this->getLinks();
 
         echo $this->render('Admin/menus/settings/index.php', $this->fields);
     }

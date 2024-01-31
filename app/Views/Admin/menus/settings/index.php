@@ -1,24 +1,9 @@
 <?php
 /**
  * template: wp-content/plugins/wc-plugin-template/app/Views/Admin/settings/index.php
+ * @var \WCPaymentLink\Model\LinkModel[] $links
  */
 
-$links = [
-    [
-        'name' => 'Teste',
-        'cart_items' => 2,
-        'expire_at' => '10/02/2023',
-        'token' => 'a21f4ab5-2293-44fb-8df0-25393cbe8e77',
-        'cart_total' => 100.00
-    ],
-    [
-        'name' => 'Teste',
-        'cart_items' => 2,
-        'expire_at' => '10/02/2023',
-        'token' => 'a21f4ab5-2293-44fb-8df0-25393cbe8e77',
-        'cart_total' => 100.00
-    ]
-];
 ?>
 <div class="wrap wpl-wrap px-8">
     <div class="my-4 flex align-middle">
@@ -74,19 +59,19 @@ $links = [
             <?php foreach ($links as $link): ?>
                 <tr class="bg-white hover:bg-gray-100 border-b">
                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        <?= esc_html($link['name']) ?>
+                        <?= esc_html($link->getName()) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <?= esc_html($link['cart_items']) ?>
+                        <?= esc_html(count($link->getProducts())) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <?= esc_html($link['expire_at']) ?>
+                        <?= esc_html($link->getExpireAt()->format('d-m-Y H:i:s')) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="text-blue-400"><?= esc_html($link['token']) ?></a>
+                        <a href="#" class="text-blue-400"><?= esc_html($link->getToken()) ?></a>
                     </td>
                     <td class="px-6 py-4">
-                        <?= esc_html($link['cart_total']) ?>
+                        <?= wc_price(100.0) ?>
                     </td>
                     <td class="px-6 py-4">
                         <a href="#" class="open-link-form font-medium text-blue-600 no-underline"><?= __('Edit', 'wc-payment-link'); ?></a>

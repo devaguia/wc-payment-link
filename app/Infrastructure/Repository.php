@@ -86,7 +86,7 @@ abstract class Repository
 		return $this->db->insert($this->table, $fields);
 	}
 
-	public function findAll(string $orderBy = '', int $limit = 0, int $page = 1): array
+	public function findAll(string $orderBy = '', int $limit = 0, int $page = 1, bool $fill = false): array
 	{
 		$result = [];
 		$query = "SELECT * FROM {$this->table}";
@@ -104,7 +104,16 @@ abstract class Repository
 
 		$query.= ";";
 
-		$result['rows'] = $this->query($query) ?? [];
+        if ($fill) {
+            $rows = [];
+            foreach ($this->query($query) as $item) {
+                $rows[] = $this->fill($item);
+            }
+
+            $result['rows'] = $rows;
+        } else {
+            $result['rows'] = $this->query($query) ?? [];
+        }
 
 		return $result ;
 	}
