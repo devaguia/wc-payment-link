@@ -108,7 +108,7 @@ yarn build
 │   │   ├── admin
 │   │   │   └── menus
 │   │   │       └── settings
-│   │   │           └── index.ts
+│   │   │           └── index.js
 │   │   ├── components
 │   │   └── theme
 │   │       └── pages

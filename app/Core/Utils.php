@@ -21,9 +21,4 @@ class Utils
 
         return ob_get_clean();
     }
-
-    public function includeTemplatePart(string $file = ''): void
-    {
-        include_once $file;
-    }
 }

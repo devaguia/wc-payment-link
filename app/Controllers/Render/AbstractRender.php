@@ -29,8 +29,7 @@ abstract class AbstractRender implements InterfaceRender
                 ]
             );
 
-            $this->enqueueStyles(['name' => 'global', 'file' => 'styles/global/index.css']);
-            $this->enqueueStyles(['name' => 'tailwind', 'file' => 'app.css']);
+            $this->enqueueStyles(['name' => 'tailwind', 'file' => 'styles/app.css']);
         }
     }
 
