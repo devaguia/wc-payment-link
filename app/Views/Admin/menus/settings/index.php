@@ -3,7 +3,6 @@
  * template: wp-content/plugins/wc-plugin-template/app/Views/Admin/settings/index.php
  */
 
-
 $links = [
     [
         'name' => 'Teste',
@@ -21,10 +20,14 @@ $links = [
     ]
 ];
 ?>
-<div class="wrap px-8">
-    <div class="my-4">
-        <h1 id="table-desc"><?= __('Payment Links', 'wc-payment-link'); ?></h1>
+<div class="wrap wpl-wrap px-8">
+    <div class="my-4 flex align-middle">
+        <h1 id="table-desc" class="text-3xl"><?= __('Payment Links', 'wc-payment-link'); ?></h1>
+        <button id="" class="ml-4 p-8 pt-1 pb-1 bg-blue-600 text-white rounded justify-center hover:bg-[#316beb]">
+            <?= __('New payment link', 'wc-payment-link'); ?>
+        </button>
     </div>
+    <hr class="mb-5"/>
     <div class="mb-5 w-1/2">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
         <div class="relative">
@@ -38,7 +41,8 @@ $links = [
                    id="default-search"
                    class="block w-full !p-4 !ps-10 !text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                    placeholder="<?= __('Search for links', 'wc-payment-link'); ?>"
-                   value="<?=esc_attr($search)?>">
+                   value="<?=esc_attr($search)?>"
+            >
         </div>
         </form>
     </div>
@@ -85,9 +89,9 @@ $links = [
                         <?= esc_html($link['cart_total']) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 no-underline"><?= __('See', 'wc-payment-link'); ?></a>
+                        <a href="#" class="font-medium text-blue-600 no-underline"><?= __('Edit', 'wc-payment-link'); ?></a>
                         <span>|</span>
-                        <a href="#" class="font-medium text-blue-600 no-underline"><?= __('Copy', 'wc-payment-link'); ?></a>
+                        <a href="#" class="font-medium text-blue-600 no-underline"><?= __('Remove', 'wc-payment-link'); ?></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
