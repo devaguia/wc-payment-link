@@ -1,4 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
+import Table from './table.js';
 class Settings
 {
     constructor() {
@@ -6,6 +7,8 @@ class Settings
         this.editPaymentLink();
         this.copyLink();
         this.handlerToken();
+
+        new Table();
     }
 
     handlerToken() {
@@ -148,10 +151,6 @@ class Settings
                 }
             }
         }
-    }
-
-    setLinkUrl(url) {
-
     }
 
     fillModalProducts() {

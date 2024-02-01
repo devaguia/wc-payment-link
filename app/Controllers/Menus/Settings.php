@@ -33,10 +33,20 @@ class Settings extends AbstractRender
 
     public function getLinks(): void
     {
+        $orderBy = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '';
+        $order = filter_input( INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '';
+        $page  = filter_input( INPUT_GET, 'table-page', FILTER_SANITIZE_NUMBER_INT ) ?? 1;
+
         $this->fields['links'] = [];
 
         $linkRepository = new LinkRepository();
-        $links = $linkRepository->findAll(fill: true);
+        $links = $linkRepository->findAll(
+            $orderBy,
+            10,
+            $page,
+            $order,
+            true
+        );
 
         if (isset($links['rows'])) {
             $this->fields['links'] = $links['rows'];

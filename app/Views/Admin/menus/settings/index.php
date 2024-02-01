@@ -4,6 +4,7 @@
  * @var \WCPaymentLink\Model\LinkModel[] $links
  */
 
+$orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/></svg>'
 ?>
 <div class="wrap wpl-wrap px-8">
     <div class="my-4 flex align-middle">
@@ -36,22 +37,49 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    <?= __('Link Name', 'wc-payment-link'); ?>
+                    <div>
+                        <a class="flex items-center cursor-pointer order-table" data-order="name">
+                            <?= __('Link Name', 'wc-payment-link'); ?>
+                            <?= $orderBySvg ?>
+                        </a>
+                    </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    <?= __('Cart Items', 'wc-payment-link'); ?>
+                    <div>
+                        <a class="flex items-center cursor-pointer order-table" data-order="">
+                            <?= __('Expire at', 'wc-payment-link'); ?>
+                            <?= $orderBySvg ?>
+                        </a>
+                    </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    <?= __('Expire at', 'wc-payment-link'); ?>
+                    <div>
+                        <a class="flex items-center cursor-pointer order-table" data-order="">
+                            <?= __('Token', 'wc-payment-link'); ?>
+                            <?= $orderBySvg ?>
+                        </a>
+                    </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    <?= __('Token', 'wc-payment-link'); ?>
+                    <div>
+                        <a class="flex items-center cursor-pointer order-table">
+                            <?= __('Cart Items', 'wc-payment-link'); ?>
+                        </a>
+                    </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    <?= __('Cart Total', 'wc-payment-link'); ?>
+                    <div>
+                        <a class="flex items-center cursor-pointer order-table">
+                            <?= __('Cart Total', 'wc-payment-link'); ?>
+                        </a>
+                    </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    <?= __('Actions', 'wc-payment-link'); ?>
+                    <div>
+                        <a class="flex items-center cursor-pointer order-table">
+                            <?= __('Actions', 'wc-payment-link'); ?>
+                        </a>
+                    </div>
                 </th>
             </tr>
             </thead>
@@ -62,13 +90,13 @@
                         <?= esc_html($link->getName()) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <?= esc_html(count($link->getProducts())) ?>
-                    </td>
-                    <td class="px-6 py-4">
                         <?= esc_html($link->getExpireAt()->format('d/m/Y - H:i')) ?>
                     </td>
                     <td class="px-6 py-4">
                         <a href="<?= esc_url($link->getLinkUrl()); ?>" target="_blank" class="text-blue-400"><?= esc_html($link->getToken()) ?></a>
+                    </td>
+                    <td class="px-6 py-4">
+                        <?= esc_html(count($link->getProducts())) ?>
                     </td>
                     <td class="px-6 py-4">
                         <?= wc_price($link->getCartTotal()); ?>
