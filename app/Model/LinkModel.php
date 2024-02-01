@@ -82,7 +82,6 @@ class LinkModel extends Model
         $this->id = $id;
     }
 
-
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;

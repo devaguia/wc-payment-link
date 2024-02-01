@@ -22,7 +22,7 @@ class Menus {
             $function = wplConfig()->pluginNamespace() . "\\Controllers\\Menus\\$controller[0]";
             $menu     = [
                 'title'    => $controller[1],
-                'slug'     => 'wc-plugin-template-' . $slug,
+                'slug'     => 'wc-payment-link-' . $slug,
                 'function' => [new $function, 'request'],
                 'position' => $key
             ];

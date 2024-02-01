@@ -35,6 +35,35 @@ class Settings
     closeModal() {
         const modal = document.querySelector('#link-form');
         modal.classList.add('hidden');
+        this.clearModal(modal);
+    }
+
+    clearModal(modal) {
+        console.log(modal);
+        if (!modal) return;
+
+        const fields = [
+            'name',
+            'token',
+            'expire_at',
+            'hour',
+            'coupon',
+            'product-checkbox',
+            'product-quantity'
+        ];
+
+        fields.forEach((field) => {
+            if (field !== 'product-checkbox' && field !== 'product-quantity') {
+                const elements = modal.querySelector(`#${field}`);
+                elements.value = '';
+            } else {
+                const elements = modal.querySelectorAll(`.${field}`);
+                elements.forEach((element) => {
+                    element.value = '';
+                });
+            }
+
+        });
     }
 }
 

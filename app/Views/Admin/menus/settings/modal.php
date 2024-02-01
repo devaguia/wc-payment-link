@@ -1,6 +1,6 @@
 <?php
 /**
- * template: wp-content/plugins/wc-plugin-template/app/Views/Admin/settings/edit.php
+ * template: wp-content/plugins/wc-plugin-template/app/Views/Admin/settings/modal.php
  * @var array $products
  */
 ?>
@@ -37,9 +37,9 @@
                 <div class="py-1">
                     <label><?= __('Expire at:', 'wc-payment-link'); ?></label>
                     <div class="flex flex-row items-center justify-center gap-2 max-w-60">
-                        <input class="w-full h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="date" id="date" name="date">
+                        <input class="w-full h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="date" id="expire_at" name="expire_at">
                         <label><?= __('H:', 'wc-payment-link'); ?></label>
-                        <input class="w-16s h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="number" min="0" max="23" id="hour" name="hour">
+                        <input class="w-16 h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="number" min="0" max="23" id="hour" name="hour">
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                 <?php foreach ($products as $product): ?>
                     <div class="grid grid-cols-[20px_1fr_40px] gap-2 items-center my-2">
                         <div>
-                            <input type="checkbox" aria-label="none"/>
+                            <input class="product-checkbox" type="checkbox" aria-label="none"/>
                         </div>
                         <div class="flex flex-row items-center gap-2">
                             <img class="w-[40px]" src="<?= esc_url(get_the_post_thumbnail_url($product->ID, 'thumbnail')); ?>"/>

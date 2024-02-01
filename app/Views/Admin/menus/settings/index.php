@@ -111,4 +111,4 @@
     <?php endif; ?>
 </div>
 
-<?php require_once __DIR__ . '/edit.php'; ?>
+<?php require_once __DIR__ . '/modal.php'; ?>
