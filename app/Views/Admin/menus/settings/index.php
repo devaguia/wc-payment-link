@@ -71,14 +71,29 @@
                         <a href="#" class="text-blue-400"><?= esc_html($link->getToken()) ?></a>
                     </td>
                     <td class="px-6 py-4">
-                        <?= wc_price(100.0) ?>
+                        <?= wc_price($link->getCartTotal()); ?>
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-950 no-underline hover:text-blue-600"><i class="fa-solid fa-copy"></i></a>
+                        <a href="#"
+                           class="font-medium text-blue-950 no-underline hover:text-blue-600"
+                           data-url="<?= esc_url($link->getLinkUrl()); ?>"
+                        >
+                            <i class="fa-solid fa-copy"></i>
+                        </a>
                         <span>|</span>
-                        <a href="#" class="open-link-form font-medium text-black no-underline hover:text-black-800"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="#"
+                           class="open-link-form font-medium text-black no-underline hover:text-black-800"
+                           data-link='<?= esc_attr(json_encode($link->getData())); ?>'
+                        >
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
                         <span>|</span>
-                        <a href="#" class="font-medium text-red-800 no-underline hover:text-red-600"><i class="fa-solid fa-trash"></i></a>
+                        <a href="#"
+                           class="font-medium text-red-800 no-underline hover:text-red-600"
+                           data-id="<?= esc_attr($link->getId()); ?>"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>

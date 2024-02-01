@@ -102,6 +102,29 @@ class LinkModel extends Model
         $this->updatedAt = $updatedAt;
     }
 
+    public function getCartTotal(): float
+    {
+        return 0.0;
+    }
+
+    public function getLinkUrl(): string
+    {
+        return site_url( "/pay/{$this->token}", 'https' );
+    }
+
+    public function getData(): array
+    {
+        return [
+            'id'        => $this->id,
+            'name'      => $this->name,
+            'token'     => $this->token,
+            'coupon'    => $this->coupon,
+            'products'  => $this->products,
+            'expire_at' =>$this->getExpireAt()->format('d/m/Y H:i'),
+            'link_url'  => $this->getLinkUrl()
+        ];
+    }
+
 }
 
 
