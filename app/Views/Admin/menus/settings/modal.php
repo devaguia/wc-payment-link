@@ -6,7 +6,7 @@
 ?>
 
 <div id="link-form" class="flex absolute z-1000 left-0 top-0 w-full h-full overflow-auto items-center justify-center bg-black bg-opacity-0 hidden">
-    <div class="bg-white rounded-md py-10 px-10 max-w-screen-4xl shadow-xl">
+    <form class="bg-white rounded-md py-10 px-10 max-w-screen-4xl shadow-xl" method="post">
         <div>
             <span id="close-link-form" class="relative hover:cursor-pointer text-2xl font-bold float-right left-2 bottom-6"><i class="fa-solid fa-xmark"></i></span>
         </div>
@@ -72,5 +72,6 @@
         <div>
             <button class="w-[120px] float-right text-white h-10 bg-blue-600 outline-0 mt-[20px] border-none shadow-md rounded-md hover:bg-[#316beb]"><?= __('Save','wc-payment-link'); ?></button>
         </div>
-    </div>
+        <input type="hidden" value="save" name="action"/>
+    </form>
 </div>
