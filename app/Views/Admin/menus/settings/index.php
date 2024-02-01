@@ -65,7 +65,7 @@
                         <?= esc_html(count($link->getProducts())) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <?= esc_html($link->getExpireAt()->format('d-m-Y H:i:s')) ?>
+                        <?= esc_html($link->getExpireAt()->format('d/m/Y - H:i')) ?>
                     </td>
                     <td class="px-6 py-4">
                         <a href="#" class="text-blue-400"><?= esc_html($link->getToken()) ?></a>
@@ -74,9 +74,11 @@
                         <?= wc_price(100.0) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="open-link-form font-medium text-blue-600 no-underline"><?= __('Edit', 'wc-payment-link'); ?></a>
+                        <a href="#" class="font-medium text-blue-950 no-underline hover:text-blue-600"><i class="fa-solid fa-copy"></i></a>
                         <span>|</span>
-                        <a href="#" class="font-medium text-blue-600 no-underline"><?= __('Remove', 'wc-payment-link'); ?></a>
+                        <a href="#" class="open-link-form font-medium text-black no-underline hover:text-black-800"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <span>|</span>
+                        <a href="#" class="font-medium text-red-800 no-underline hover:text-red-600"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -39,7 +39,6 @@ class Settings
     }
 
     clearModal(modal) {
-        console.log(modal);
         if (!modal) return;
 
         const fields = [
@@ -47,23 +46,26 @@ class Settings
             'token',
             'expire_at',
             'hour',
-            'coupon',
-            'product-checkbox',
-            'product-quantity'
+            'coupon'
         ];
 
         fields.forEach((field) => {
-            if (field !== 'product-checkbox' && field !== 'product-quantity') {
-                const elements = modal.querySelector(`#${field}`);
-                elements.value = '';
-            } else {
-                const elements = modal.querySelectorAll(`.${field}`);
-                elements.forEach((element) => {
-                    element.value = '';
-                });
+            const element = modal.querySelector(`#${field}`);
+            if (element) {
+                element.value = '';
             }
-
         });
+
+        ['product-checkbox','product-quantity'].forEach((field) => {
+            const elements = modal.querySelectorAll(`.${field}`);
+            elements.forEach((element) => {
+                element.value = '';
+
+                if (field === 'product-checkbox') {
+                    element.checked = false;
+                }
+            });
+        })
     }
 }
 

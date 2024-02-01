@@ -57,7 +57,7 @@
                             <label><?= esc_html($product->post_title); ?></label>
                         </div>
                         <div class="">
-                            <input class="w-[60px]" type="number"/>
+                            <input class="product-checkbox w-[60px]" type="number"/>
                         </div>
                     </div>
                 <?php endforeach; ?>
