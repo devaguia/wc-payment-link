@@ -68,32 +68,27 @@
                         <?= esc_html($link->getExpireAt()->format('d/m/Y - H:i')) ?>
                     </td>
                     <td class="px-6 py-4">
-                        <a href="#" class="text-blue-400"><?= esc_html($link->getToken()) ?></a>
+                        <a href="<?= esc_url($link->getLinkUrl()); ?>" target="_blank" class="text-blue-400"><?= esc_html($link->getToken()) ?></a>
                     </td>
                     <td class="px-6 py-4">
                         <?= wc_price($link->getCartTotal()); ?>
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#"
-                           class="font-medium text-blue-950 no-underline hover:text-blue-600"
-                           data-url="<?= esc_url($link->getLinkUrl()); ?>"
-                        >
+                    <td class="px-6 py-4 flex gap-2">
+                        <a class="copy-element font-medium text-blue-950 no-underline hover:text-blue-600 hover:cursor-pointer"data-copy="<?= esc_url($link->getLinkUrl()); ?>">
                             <i class="fa-solid fa-copy"></i>
                         </a>
                         <span>|</span>
-                        <a href="#"
-                           class="open-link-form font-medium text-black no-underline hover:text-black-800"
-                           data-link='<?= esc_attr(json_encode($link->getData())); ?>'
-                        >
+                        <a class="open-link-form font-medium text-black no-underline hover:text-black-800 hover:cursor-pointer" data-link='<?= esc_attr(json_encode($link->getData())); ?>'>
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <span>|</span>
-                        <a href="#"
-                           class="font-medium text-red-800 no-underline hover:text-red-600"
-                           data-id="<?= esc_attr($link->getId()); ?>"
-                        >
-                            <i class="fa-solid fa-trash"></i>
-                        </a>
+                        <form method="post">
+                            <input type="hidden" name="action" value="remove"/>
+                            <input type="hidden" name="link" value="<?= esc_attr($link->getId()); ?>"/>
+                            <button class="font-medium text-red-800 no-underline hover:text-red-600 hover:cursor-pointer">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -3,6 +3,21 @@ class Settings
     constructor() {
         this.addPaymentLink();
         this.editPaymentLink();
+        this.copyLink();
+    }
+
+    copyLink() {
+        const elements = document.querySelectorAll('.copy-element');
+
+        elements.forEach((element) => {
+            element.addEventListener('click', () => {
+                const text = element.getAttribute('data-copy');
+                console.log(text)
+                if (navigator?.clipboard?.writeText) {
+                    navigator.clipboard.writeText(text.value);
+                }
+            })
+        });
     }
 
     addPaymentLink() {
