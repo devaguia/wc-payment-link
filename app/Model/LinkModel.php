@@ -115,13 +115,14 @@ class LinkModel extends Model
     public function getData(): array
     {
         return [
-            'id'        => $this->id,
-            'name'      => $this->name,
-            'token'     => $this->token,
-            'coupon'    => $this->coupon,
-            'products'  => $this->products,
-            'expire_at' =>$this->getExpireAt()->format('d/m/Y H:i'),
-            'link_url'  => $this->getLinkUrl()
+            'link_id'      => $this->id,
+            'name'         => $this->name,
+            'token'        => $this->token,
+            'coupon'       => $this->coupon,
+            'products'     => $this->products,
+            'expire_at'    => $this->getExpireAt()->format('Y-m-d'),
+            'expire_hour'  => $this->getExpireAt()->format('H'),
+            'link_url'     => $this->getLinkUrl()
         ];
     }
 

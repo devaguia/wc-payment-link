@@ -1,9 +1,29 @@
+import {v4 as uuidv4} from 'uuid';
 class Settings
 {
     constructor() {
         this.addPaymentLink();
         this.editPaymentLink();
         this.copyLink();
+        this.handlerToken();
+    }
+
+    handlerToken() {
+        const button = document.querySelector('#generate-token');
+
+        if (button) {
+            button.addEventListener('click', () => {
+                this.generateToken();
+            });
+        }
+    }
+
+    generateToken() {
+        const token = document.querySelector('#token');
+
+        if (token) {
+            token.value = uuidv4();
+        }
     }
 
     copyLink() {
@@ -24,6 +44,7 @@ class Settings
         const button = document.querySelector('#add-payment-link');
         button.addEventListener('click', () => {
             this.openModal();
+            this.generateToken();
         });
     }
 
@@ -34,6 +55,7 @@ class Settings
         anchors.forEach((anchor) => {
             anchor.addEventListener('click', () => {
                 this.openModal();
+                this.fillModalFields(anchor.getAttribute('data-link'));
             });
         });
 
@@ -44,13 +66,19 @@ class Settings
 
     openModal() {
         const modal = document.querySelector('#link-form');
+
+        this.clearModal(modal);
+        this.clearModalProducts();
+
         modal.classList.remove('hidden');
     }
 
     closeModal() {
         const modal = document.querySelector('#link-form');
-        modal.classList.add('hidden');
+
         this.clearModal(modal);
+        this.clearModalProducts();
+        modal.classList.add('hidden');
     }
 
     clearModal(modal) {
@@ -60,14 +88,26 @@ class Settings
             'name',
             'token',
             'expire_at',
-            'hour',
-            'coupon'
+            'expire_hour',
+            'coupon',
+            'link_id',
+            'link_url'
         ];
 
         fields.forEach((field) => {
             const element = modal.querySelector(`#${field}`);
-            if (element) {
-                element.value = '';
+
+            switch (field) {
+                case 'link_id':
+                    element.innerText = '';
+                    break;
+                case 'link_url':
+                    element.removeAttribute('href');
+                    element.classList.add('hidden')
+                    break;
+                default:
+                    if (element) element.value = '';
+                    break;
             }
         });
 
@@ -81,6 +121,45 @@ class Settings
                 }
             });
         })
+    }
+
+    fillModalFields(fields) {
+        const object = JSON.parse(fields);
+
+        if (object) {
+            for (const key in object) {
+                const element = document.querySelector(`#${key}`);
+
+                switch (key) {
+                    case 'products':
+                        this.fillModalProducts();
+                    break;
+                    case 'link_id':
+                        element.innerText = `#${object[key]}`;
+                    break;
+                    case 'link_url':
+                        element.setAttribute('href', object[key]);
+                        element.classList.remove('hidden')
+                    break;
+                    default:
+                        if (element) element.value = object[key];
+                    break;
+
+                }
+            }
+        }
+    }
+
+    setLinkUrl(url) {
+
+    }
+
+    fillModalProducts() {
+        // do nothing
+    }
+
+    clearModalProducts() {
+        // do nothing
     }
 }
 

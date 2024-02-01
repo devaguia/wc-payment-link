@@ -10,8 +10,14 @@
         <div>
             <span id="close-link-form" class="relative hover:cursor-pointer text-2xl font-bold float-right left-2 bottom-6"><i class="fa-solid fa-xmark"></i></span>
         </div>
-        <div>
-            <h2 class="text-xl font-bold"><?= __('Edit Link', 'wc-payment-link'); ?></h2>
+        <div id="modal-link-title">
+            <h2 class="text-xl font-bold">
+                <?= __('Edit Link', 'wc-payment-link'); ?>
+                <span id="link_id" class="text-gray-400"></span>
+                <a href="" id="link_url" target="_blank" class="hidden copy-element text-lg ml-[5px] font-medium text-blue-950 no-underline hover:text-blue-800 hover:cursor-pointer">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </h2>
         </div>
         <div class="pb-4 border-b-[1px] border-black-400">
             <div class="w-full grid grid-cols-[1fr_2fr_40px] gap-2 items-center">
@@ -28,8 +34,8 @@
                     </div>
                 </div>
                 <div class="py-1">
-                    <div>
-                        <button class="w-full text-white h-10 bg-blue-600 outline-0 mt-[20px] border-none shadow-md rounded-md hover:bg-[#316beb]"><i class="fa-solid fa-rotate-left"></i></button>
+                    <div id="generate-token"  class="w-full bg-blue-600 text-white h-10 mt-[20px] border-none shadow-md rounded-md hover:cursor-pointer hover:bg-[#316beb] flex items-center justify-center hover:text-white">
+                        <i class="fa-solid fa-rotate-left"></i>
                     </div>
                 </div>
             </div>
@@ -39,7 +45,7 @@
                     <div class="flex flex-row items-center justify-center gap-2 max-w-60">
                         <input class="w-full h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="date" id="expire_at" name="expire_at">
                         <label><?= __('H:', 'wc-payment-link'); ?></label>
-                        <input class="w-16 h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="number" min="0" max="23" id="hour" name="hour">
+                        <input class="w-16 h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="number" min="0" max="23" id="expire_hour" name="hour">
                     </div>
                 </div>
             </div>
