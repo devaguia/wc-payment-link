@@ -17,7 +17,7 @@ class Logger
     $this->prefix  = wplConfig()->pluginSlug();
   }
 
-  public function add($var, string $type = 'request'): void
+  public function add($var, string $type = 'database'): void
   {
     switch ($type) {
       case 'error':
@@ -31,7 +31,7 @@ class Logger
         break;
 
       default:
-        $log   = "{$this->prefix}-request";
+        $log   = "{$this->prefix}-database";
         $title = '--- WC PAYMENT LINK REQUEST LOG ---';
         break;
     }

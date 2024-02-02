@@ -64,24 +64,23 @@ class Settings extends AbstractRender
                 $this->fields['errors'] = [ __('Error message', 'wc-payment-link')];
                 $this->logger->add([
                     'type'   => 'SAVE',
-                    'status' => 'ERROR',
                     'object' => $fields
-                ], 'database');
+                ], 'error');
 
                 wp_redirect(admin_url("admin.php?page={$page}"));
             }
-
-            $this->logger->add([
-                'type'   => 'SAVE',
-                'status' => 'SUCCESS',
-                'object' => $fields
-            ], 'database');
 
             $this->fields['saved'] = true;
             return;
 
         } catch (\Exception $e) {
             $this->fields['errors'] = [__('Error message', 'wc-payment-link')];
+
+            $this->logger->add([
+                'type'   => 'SAVE',
+                'object' => $e->getMessage()
+            ], 'error');
+
             wp_redirect(admin_url("admin.php?page={$page}"));
         }
     }
