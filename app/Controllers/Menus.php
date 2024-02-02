@@ -7,7 +7,7 @@ class Menus {
     private function defineMenus(): array
     {
         return [
-            ['Settings', __('Payment Links', 'wc-payment-link')]
+            ['Links', __('Payment Links', 'wc-payment-link')]
         ];
     }
 

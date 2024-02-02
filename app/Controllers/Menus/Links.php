@@ -8,7 +8,7 @@ use WCPaymentLink\Repository\LinkRepository;
 use WCPaymentLink\Services\WooCommerce\Logs\Logger;
 use WP_Query;
 
-class Settings extends AbstractRender
+class Links extends AbstractRender
 {
     private array $fields = [];
     private Logger $logger;
@@ -19,17 +19,31 @@ class Settings extends AbstractRender
         $this->linkRepository = new LinkRepository();
         $this->logger = new Logger();
 
-        $this->saveLink();
+        $this->handleActions();
+    }
+
+    private function handleActions(): void
+    {
+        $page = filter_input( INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS );
+        $action = filter_input( INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS );
+
+        if ($page != 'wc-payment-link-settings') {
+            return;
+        }
+
+        if ($action === 'save') {
+            $this->saveLink();
+        }
+
+        if ($action === 'remove') {
+            $this->deleteLink();
+        }
     }
 
     private function saveLink(): void
     {
-        $page = filter_input( INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '';
-
         try {
-            if ($page != 'wc-payment-link-settings') {
-                return;
-            }
+            $page = filter_input( INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS );
 
             $fields = $this->getPostFields();
             $errors = $this->validateFields($fields);
@@ -39,9 +53,6 @@ class Settings extends AbstractRender
                 return;
             }
 
-            //TODO: add validation on model for date and hour
-            //TODO: add validation on model for token. Check if he is a valid uuid
-            //TODO: throw an exception for invalid data on model. Catch on this function and show on page
             $date = new \DateTime($fields['expire_at']);
             $date->setTime(
                 $fields['hour'] ?? 0,
@@ -70,12 +81,46 @@ class Settings extends AbstractRender
                 wp_redirect(admin_url("admin.php?page={$page}"));
             }
 
-            $this->fields['saved'] = true;
+            $this->fields['success'][] = __('Link saved successfully!', 'wc-payment-link');
             return;
 
         } catch (\Exception $e) {
             $this->fields['errors'] = [__('Error message', 'wc-payment-link')];
 
+            $this->logger->add([
+                'type'   => 'SAVE',
+                'object' => $e->getMessage()
+            ], 'error');
+
+            wp_redirect(admin_url("admin.php?page={$page}"));
+        }
+    }
+
+    private function deleteLink(): void
+    {
+        $page = filter_input( INPUT_POST, 'page', FILTER_SANITIZE_SPECIAL_CHARS );
+        $linkId = filter_input( INPUT_POST, 'link', FILTER_VALIDATE_INT );
+
+        try {
+            $link = new LinkModel();
+            $link->setId($linkId);
+
+            $data = $this->linkRepository->remove($link);
+
+            if (!$data) {
+                $this->fields['errors'] = [ __('Error message', 'wc-payment-link')];
+                $this->logger->add([
+                    'type'   => 'SAVE',
+                    'Link' => $linkId
+                ], 'error');
+
+                wp_redirect(admin_url("admin.php?page={$page}"));
+            }
+
+            $this->fields['success'][] = __('Link deleted successfully!', 'wc-payment-link');
+            return;
+
+        } catch (\Exception $e) {
             $this->logger->add([
                 'type'   => 'SAVE',
                 'object' => $e->getMessage()

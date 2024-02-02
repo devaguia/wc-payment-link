@@ -38,8 +38,8 @@ class Functions
 
             $label = sprintf(
                 '<a href="admin.php?page=wc-plugin-template-settings" id="deactivate-wc-plugin-template" aria-label="%s">%s</a>',
-                __('Settings', 'wc-plugin-template'),
-                __('Settings', 'wc-plugin-template')
+                __('Links', 'wc-plugin-template'),
+                __('Links', 'wc-plugin-template')
             );
 
             $arr['settings'] = $label;

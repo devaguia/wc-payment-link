@@ -39,7 +39,7 @@ class LinkRepository extends Repository
 
 		$query = $this->db->delete(
 			$this->table,
-			['ID' => $entity->getId()]
+			['id' => $entity->getId()]
 		);
 
 		if (!$query) {

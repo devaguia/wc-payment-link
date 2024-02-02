@@ -46,7 +46,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <div>
-                        <a class="flex items-center cursor-pointer order-table" data-order="">
+                        <a class="flex items-center cursor-pointer order-table" data-order="expire_at">
                             <?= __('Expire at', 'wc-payment-link'); ?>
                             <?= $orderBySvg ?>
                         </a>
@@ -54,7 +54,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <div>
-                        <a class="flex items-center cursor-pointer order-table" data-order="">
+                        <a class="flex items-center cursor-pointer order-table" data-order="token">
                             <?= __('Token', 'wc-payment-link'); ?>
                             <?= $orderBySvg ?>
                         </a>
@@ -62,21 +62,21 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <div>
-                        <a class="flex items-center cursor-pointer order-table">
+                        <a class="flex items-center cursor-pointer">
                             <?= __('Cart Items', 'wc-payment-link'); ?>
                         </a>
                     </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <div>
-                        <a class="flex items-center cursor-pointer order-table">
+                        <a class="flex items-center cursor-pointer">
                             <?= __('Cart Total', 'wc-payment-link'); ?>
                         </a>
                     </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <div>
-                        <a class="flex items-center cursor-pointer order-table">
+                        <a class="flex items-center cursor-pointer">
                             <?= __('Actions', 'wc-payment-link'); ?>
                         </a>
                     </div>
@@ -112,6 +112,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                         <span>|</span>
                         <form method="post">
                             <input type="hidden" name="action" value="remove"/>
+                            <input type="hidden" value="wc-payment-link-settings" name="page"/>
                             <input type="hidden" name="link" value="<?= esc_attr($link->getId()); ?>"/>
                             <button class="font-medium text-red-800 no-underline hover:text-red-600 hover:cursor-pointer">
                                 <i class="fa-solid fa-trash"></i>
