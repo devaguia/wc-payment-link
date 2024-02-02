@@ -22,17 +22,17 @@ class Logger
     switch ($type) {
       case 'error':
         $log   = "{$this->prefix}-error";
-        $title = '--- PAGAR.ME PAYMENTS ERROR LOG ---';
+        $title = '--- WC PAYMENT LINK ERROR LOG ---';
         break;
 
       case 'success':
         $log   = "{$this->prefix}-success";
-        $title = '--- PAGAR.ME PAYMENTS SUCCESS LOG ---';
+        $title = '--- WC PAYMENT LINK SUCCESS LOG ---';
         break;
 
       default:
         $log   = "{$this->prefix}-request";
-        $title = '--- PAGAR.ME PAYMENTS REQUEST LOG ---';
+        $title = '--- WC PAYMENT LINK REQUEST LOG ---';
         break;
     }
 

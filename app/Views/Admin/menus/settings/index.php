@@ -128,21 +128,27 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
             <nav aria-label="Page navigation example" class="mt-4 shadow-md rounded-md float-right">
                 <ul class="inline-flex -space-x-px text-base h-10">
                     <li>
-                        <a class="ml-0 rounded-l-lg wp-atlas-pagination" data-page="<?= $pagination['page'] - 1 ?: 1 ?>">
-                            Anterior
+                        <a data-page="<?= $pagination['current'] - 1 ?: 1 ?>"
+                           class="pagination ml-0 rounded-l-lg flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 bg-white border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <?= __('Previous', 'wc-payment-link');?>
                         </a>
                     </li>
                     <?php for($i = 1; $i <= $pagination['pages']; $i++): ?>
                         <li>
-                            <a class="wp-atlas-pagination" data-page="<?= $i ?>">
+                            <?php $backgroundColor = $pagination['current'] === $i ? 'hover:bg-gray-100' : 'bg-white'; ?>
+                            <a data-page="<?= $i ?>"
+                               class="<?= esc_attr($backgroundColor); ?> pagination flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                            >
                                 <?= $i ?>
                             </a>
                         </li>
                     <?php endfor; ?>
                     <li>
                     <li>
-                        <a class="rounded-r-lg wp-atlas-pagination" data-page="<?= min( $pagination['page'] + 1, $pagination['pages']) ?>">
-                            Próxima
+                        <a data-page="<?= min( $pagination['current'] + 1, $pagination['pages']) ?>"
+                           class="pagination rounded-r-lg flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 bg-white border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >
+                            <?= __('Next', 'wc-payment-link');?>
                         </a>
                     </li>
                 </ul>

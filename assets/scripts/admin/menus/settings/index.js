@@ -94,6 +94,7 @@ class Settings
             'expire_hour',
             'coupon',
             'link_id',
+            'hidden_link_id',
             'link_url'
         ];
 
@@ -139,6 +140,8 @@ class Settings
                     break;
                     case 'link_id':
                         element.innerText = `#${object[key]}`;
+                        console.log(object[key]);
+                        document.querySelector(`#hidden_${key}`).value = object[key];
                     break;
                     case 'link_url':
                         element.setAttribute('href', object[key]);

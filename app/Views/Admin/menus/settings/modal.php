@@ -79,5 +79,7 @@
             <button class="w-[120px] float-right text-white h-10 bg-blue-600 outline-0 mt-[20px] border-none shadow-md rounded-md hover:bg-[#316beb]"><?= __('Save','wc-payment-link'); ?></button>
         </div>
         <input type="hidden" value="save" name="action"/>
+        <input type="hidden" value="" id="hidden_link_id" name="link_id"/>
+        <input type="hidden" value="wc-payment-link-settings" name="page"/>
     </form>
 </div>

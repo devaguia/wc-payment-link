@@ -57,7 +57,6 @@ class LinkRepository extends Repository
             'expire_at' => $entity->getExpireAt()?->format('Y-m-d H:i:s'),
             'products' => serialize($entity->getProducts()),
             'coupon' => $entity->getCoupon(),
-
 		];
 	}
 
