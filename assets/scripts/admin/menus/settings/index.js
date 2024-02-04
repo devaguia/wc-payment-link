@@ -7,6 +7,7 @@ class Settings
         this.editPaymentLink();
         this.copyLink();
         this.handlerToken();
+        this.handleModalProducts();
 
         new Table();
     }
@@ -35,7 +36,7 @@ class Settings
         elements.forEach((element) => {
             element.addEventListener('click', () => {
                 const text = element.getAttribute('data-copy');
-                console.log(text)
+
                 if (navigator?.clipboard?.writeText) {
                     navigator.clipboard.writeText(text.value);
                 }
@@ -115,7 +116,7 @@ class Settings
             }
         });
 
-        ['product-checkbox','product-quantity'].forEach((field) => {
+        ['product-checkbox','product-number'].forEach((field) => {
             const elements = modal.querySelectorAll(`.${field}`);
             elements.forEach((element) => {
                 element.value = '';
@@ -140,7 +141,6 @@ class Settings
                     break;
                     case 'link_id':
                         element.innerText = `#${object[key]}`;
-                        console.log(object[key]);
                         document.querySelector(`#hidden_${key}`).value = object[key];
                     break;
                     case 'link_url':
@@ -161,8 +161,52 @@ class Settings
     }
 
     clearModalProducts() {
-        // do nothing
+        const productList = document.querySelector('#product-list');
+        if (productList) {
+            productList.value = '';
+        }
     }
+
+    handleModalProducts() {
+
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        const numbers = document.querySelectorAll('.product-number');
+
+        [checkboxes, numbers].forEach((elements) => {
+            elements.forEach((element) => {
+                element.addEventListener('change', () => {
+                    this.updateModalProducts();
+                });
+            });
+        })
+
+    }
+
+    updateModalProducts() {
+        const products = document.querySelectorAll('.modal-product');
+        const list = [];
+
+        products.forEach((product) => {
+            const checkbox = product.querySelector('.product-checkbox');
+            const number = product.querySelector('.product-number');
+
+            if (checkbox?.checked) {
+                if (!number.value) number.value = 1;
+
+                list.push({
+                    product: checkbox.getAttribute('data-id'),
+                    quantity: number.value ? number.value : 0
+                });
+            }
+        })
+
+        const productList = document.querySelector('#product-list');
+        if (productList) {
+            productList.value = JSON.stringify(list);
+        }
+
+    }
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {

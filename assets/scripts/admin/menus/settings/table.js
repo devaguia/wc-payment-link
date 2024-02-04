@@ -7,7 +7,6 @@ export default class Table
 
     orderTable() {
         const ancors = document.querySelectorAll('.order-table');
-        console.log(ancors);
         const urlParams = new URLSearchParams(window.location.search);
         let sortOrder = urlParams.get('order') || 'DESC';
 

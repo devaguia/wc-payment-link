@@ -52,21 +52,22 @@
         </div>
         <div class="my-4">
             <h3 class="font-600 text-lg"><?= __('Cart', 'wc-payment-link'); ?></h3>
-            <div class="overflow-y-scroll max-h-48 px-8 bg-[#fafafa] rounded">
+            <div id="modal-products" class="overflow-y-scroll max-h-48 px-8 bg-[#fafafa] rounded">
                 <?php foreach ($products as $product): ?>
-                    <div class="grid grid-cols-[20px_1fr_40px] gap-2 items-center my-2">
+                    <div class="modal-product grid grid-cols-[20px_1fr_40px] gap-2 items-center my-2">
                         <div>
-                            <input class="product-checkbox" type="checkbox" aria-label="none"/>
+                            <input class="product-checkbox" type="checkbox" aria-label="none" data-id="<?= esc_attr($product->ID); ?>"/>
                         </div>
                         <div class="flex flex-row items-center gap-2">
                             <img class="w-[40px]" src="<?= esc_url(get_the_post_thumbnail_url($product->ID, 'thumbnail')); ?>"/>
                             <label><?= esc_html($product->post_title); ?></label>
                         </div>
                         <div class="">
-                            <input class="product-checkbox w-[60px]" type="number"/>
+                            <input class="product-number w-[60px]" type="number" min="1"/>
                         </div>
                     </div>
                 <?php endforeach; ?>
+                <input type="hidden" id="product-list" name="products" value=''>
             </div>
             <div class="my-4">
                 <label><?= __('Coupon','wc-payment-link'); ?></label>
