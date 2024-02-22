@@ -1,12 +1,13 @@
 <?php
 
 namespace WCPaymentLink\API;
-use WCPaymentLink\API\Routes\TestRoute;
+
+use WCPaymentLink\API\Routes\Links;
 
 class Routes
 {
 	public function register()
 	{
-		new TestRoute();
+		new Links();
 	}
 }
