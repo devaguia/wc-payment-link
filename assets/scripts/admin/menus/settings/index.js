@@ -38,7 +38,7 @@ class Settings
                 const text = element.getAttribute('data-copy');
 
                 if (navigator?.clipboard?.writeText) {
-                    navigator.clipboard.writeText(text.value);
+                    navigator.clipboard.writeText(text);
                 }
             })
         });
@@ -137,7 +137,7 @@ class Settings
 
                 switch (key) {
                     case 'products':
-                        this.fillModalProducts();
+                        this.fillModalProducts(object[key]);
                     break;
                     case 'link_id':
                         element.innerText = `#${object[key]}`;
@@ -156,8 +156,25 @@ class Settings
         }
     }
 
-    fillModalProducts() {
-        // do nothing
+    fillModalProducts(products) {
+        const productList = document.querySelector('#product-list');
+
+        if (productList) {
+            productList.value = JSON.stringify(products);
+        }
+
+        products.forEach(product => {
+            const productsElements = document.querySelectorAll('.modal-product');
+            productsElements.forEach(element => {
+                const checkbox = element.querySelector('.product-checkbox');
+                const number = element.querySelector('.product-number');
+                console.log(parseInt(checkbox.getAttribute('data-id')),product.product );
+                if (parseInt(checkbox.getAttribute('data-id')) === product.product) {
+                    checkbox.checked = true;
+                    number.value = product.quantity
+                }
+            });
+        });
     }
 
     clearModalProducts() {
@@ -197,7 +214,16 @@ class Settings
                     product: checkbox.getAttribute('data-id'),
                     quantity: number.value ? number.value : 0
                 });
+                
+            } else {
+                number.value = '';
             }
+
+            checkbox.addEventListener("change", () => {
+                if (!checkbox.checked) {
+                    number.value = '';
+                }
+            });
         })
 
         const productList = document.querySelector('#product-list');

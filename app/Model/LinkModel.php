@@ -3,21 +3,29 @@
 namespace WCPaymentLink\Model;
 
 use WCPaymentLink\Infrastructure\Model;
+use WCPaymentLink\Repository\ProductRepository;
+use WC_Coupon;
 
 class LinkModel extends Model
 {
 	private ?int $id = null;
+    /**
+     * @var ProductModel[] $products
+     */
+    private array $products = [];
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
+    private ProductRepository $productRepository;
 
 	public function __construct(
         private string $name = '',
         private string $token = '',
         private ?\DateTime $expireAt = null,
-        private array $products = [],
         private string $coupon = ''
     )
-	{}
+	{
+        $this->productRepository = new ProductRepository();
+    }
 
     public function getName(): string
     {
@@ -52,14 +60,49 @@ class LinkModel extends Model
         $this->expireAt = $expireAt;
     }
 
-    public function getProducts(): array
+    private function setProducts(bool $force = false): void
     {
-        return $this->products;
+        if (empty($this->products) || $force) {
+            $this->products = $this->productRepository->getLinkProducts($this->id ?? 0);
+        }
     }
 
-    public function setProducts(array $products): void
+    public function getProducts(): array
     {
-        $this->products = $products;
+        $this->setProducts();
+        $products = [];
+
+        foreach($this->products as $product) {
+            $products[] = [
+                'product' => $product->getProductId(),
+                'quantity' => $product->getQuantity()
+            ];
+        }
+
+        return $products;
+    }
+
+    public function addProduct(int $productId, int $quantity): void
+    {
+        $productsModel = new ProductModel($productId, $quantity);
+        $this->products[] = $productsModel;
+    }
+
+    public function saveProducts(array $products)
+    {
+        $removed = $this->productRepository->removeLinkProducts($this->id);
+
+        if ($removed) {
+            foreach($products as $product) {
+                $object = new ProductModel(
+                    $product->product,
+                    $product->quantity,
+                    $this->id
+                );
+
+                $this->productRepository->save($object);
+            }
+        }
     }
 
     public function getCoupon(): string
@@ -104,7 +147,30 @@ class LinkModel extends Model
 
     public function getCartTotal(): float
     {
-        return 0.0;
+        $total = 0.0;
+
+        if (!empty($this->products)) {
+            foreach($this->products as $product) {
+                $wc_product = wc_get_product($product->getProductId());
+                $total += ($wc_product->get_price() * $product->getQuantity());
+            }
+        }
+
+        if ($this->coupon) {
+            $coupon = new WC_Coupon($this->coupon);
+            if ($coupon) {
+                $type = $coupon->get_discount_type();
+                $amount = $coupon->get_amount();
+
+                if ($type === 'fixed_cart') {
+                    $total -= (float) $amount;
+                } else {
+                    $total -= ($total / 100) * (int) $amount;
+                }
+            }
+        }
+
+        return $total > 0 ? $total : 0;
     }
 
     public function getLinkUrl(): string
@@ -119,7 +185,7 @@ class LinkModel extends Model
             'name'         => $this->name,
             'token'        => $this->token,
             'coupon'       => $this->coupon,
-            'products'     => $this->products,
+            'products'     => $this->getProducts(),
             'expire_at'    => $this->getExpireAt()->format('Y-m-d'),
             'expire_hour'  => $this->getExpireAt()->format('H'),
             'link_url'     => $this->getLinkUrl()

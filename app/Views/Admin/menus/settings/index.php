@@ -63,7 +63,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 <th scope="col" class="px-6 py-3">
                     <div>
                         <a class="flex items-center cursor-pointer">
-                            <?= __('Cart Items', 'wc-payment-link'); ?>
+                            <?= __('Products', 'wc-payment-link'); ?>
                         </a>
                     </div>
                 </th>

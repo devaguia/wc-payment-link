@@ -63,15 +63,19 @@ class Links extends AbstractRender
                 $fields['name'],
                 $fields['token'],
                 $date,
-                [],
                 $fields['coupon'],
             );
 
             $link->setId($fields['link_id'] ?? 0);
+            $products = json_decode(html_entity_decode($fields['products'])) ?? [];
+            $linkId = $this->linkRepository->save($link);
 
-            $data = $this->linkRepository->save($link);
-
-            if (!$data) {
+            if ($linkId) {
+                $link->setId($linkId);
+                $link->saveProducts($products);
+                $this->fields['success'][] = __('Link saved successfully!', 'wc-payment-link');
+                return;
+            } else {
                 $this->fields['errors'] = [ __('Error message', 'wc-payment-link')];
                 $this->logger->add([
                     'type'   => 'SAVE',
@@ -80,9 +84,6 @@ class Links extends AbstractRender
 
                 wp_redirect(admin_url("admin.php?page={$page}"));
             }
-
-            $this->fields['success'][] = __('Link saved successfully!', 'wc-payment-link');
-            return;
 
         } catch (\Exception $e) {
             $this->fields['errors'] = [__('Error message', 'wc-payment-link')];
@@ -139,7 +140,7 @@ class Links extends AbstractRender
             'expire_at' => filter_input( INPUT_POST, 'expire_at', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '',
             'coupon'    => filter_input( INPUT_POST, 'coupon', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '',
             'hour'      => filter_input( INPUT_POST, 'hour', FILTER_VALIDATE_INT ),
-            'products'  => []
+            'products'  => filter_input( INPUT_POST, 'products', FILTER_SANITIZE_SPECIAL_CHARS ) ?? ''
         ];
     }
 

@@ -61,19 +61,23 @@ abstract class Repository
         return $this->db->get_results($query);
     }
 
-	public function save(Model $entity): bool
+	public function save(Model $entity): bool|int
 	{
+		$id = false;
+		
 		if (method_exists($entity, 'getId') && $entity->getId()) {
 			$query = $this->update($this->getEntityData($entity), ['id' => $entity->getId()]);
+			$id = $entity->getId();
 		} else {
 			$query = $this->insert($this->getEntityData($entity));
+			$id = $this->db->insert_id;
 		}
 
 		if (is_bool($query)) {
 			return false;
 		}
 
-		return true;
+		return $id;
 	}
 
 	protected function update($fields, $where)
@@ -154,6 +158,28 @@ abstract class Repository
 			}
 
 			return $this->fill($row);
+		} catch (\Exception $e) {
+			return false;
+		}
+	}
+
+	protected function findBy(string $be, string $like, $fill = true): array | bool
+	{
+		$query = "SELECT * FROM {$this->table} WHERE {$be} = {$like};";
+		$rows = [];
+
+		try {
+			if ($fill) {
+				foreach($this->query($query) as $item) {
+					if ($item instanceof \stdClass) {
+						$rows[] = $this->fill($item);
+					}
+				}
+			} else {
+				return $this->query($query);
+			}
+
+			return $rows;
 		} catch (\Exception $e) {
 			return false;
 		}

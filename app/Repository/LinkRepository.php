@@ -3,7 +3,6 @@
 namespace WCPaymentLink\Repository;
 
 use WCPaymentLink\Model\LinkModel;
-use WCPaymentLink\Model\TestEntity;
 use WCPaymentLink\Infrastructure\Model;
 use WCPaymentLink\Infrastructure\Repository;
 
@@ -20,7 +19,6 @@ class LinkRepository extends Repository
             $row->name,
             $row->token,
             new \DateTime($row->expire_at),
-            is_serialized($row->products) ? unserialize($row->products) : [],
             $row->coupon ?? ''
         );
 
@@ -41,8 +39,8 @@ class LinkRepository extends Repository
 			$this->table,
 			['id' => $entity->getId()]
 		);
-
-		if (!$query) {
+		
+		if (is_bool($query)) {
 			return false;
 		}
 

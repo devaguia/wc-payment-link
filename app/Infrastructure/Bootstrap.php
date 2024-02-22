@@ -3,6 +3,7 @@
 namespace WCPaymentLink\Infrastructure;
 
 use WCPaymentLink\Repository\LinkRepository;
+use WCPaymentLink\Repository\ProductRepository;
 
 class Bootstrap
 {
@@ -12,6 +13,7 @@ class Bootstrap
 	{
 		$this->tables = [
             LinkRepository::class,
+            ProductRepository::class
 		];
 	}
 
