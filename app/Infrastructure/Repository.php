@@ -90,7 +90,7 @@ abstract class Repository
 		return $this->db->insert($this->table, $fields);
 	}
 
-	public function findAll(string $orderBy = '', int $limit = 0, int $page = 1, string $order = 'ASC', bool $fill = false): array
+	public function findAll(string $orderBy = '', int $limit = 10, int $page = 1, string $order = 'ASC', bool $fill = false): array
 	{
 		$result = [];
 		$query = "SELECT * FROM {$this->table}";

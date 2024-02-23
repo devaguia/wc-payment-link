@@ -185,6 +185,7 @@ class LinkModel extends Model
             'name'         => $this->name,
             'token'        => $this->token,
             'coupon'       => $this->coupon,
+            'cart_total'   => $this->getCartTotal(),
             'products'     => $this->getProducts(),
             'expire_at'    => $this->getExpireAt()->format('Y-m-d'),
             'expire_hour'  => $this->getExpireAt()->format('H'),
