@@ -2,6 +2,7 @@
 
 namespace WCPaymentLink\API\Routes;
 
+use DateTime;
 use WCPaymentLink\Model\LinkModel;
 use WCPaymentLink\Repository\LinkRepository;
 
@@ -73,8 +74,41 @@ class Links extends Route
         );
     }
 
-    private function updateLink(): array {
-        return [];
+    private function updateLink(array $params): void
+    {
+        $this->validateLinkFields($params);
+        
+        try {
+            $link = new LinkModel(
+                $params['name'],
+                '',
+                new DateTime($params['expire_at']),
+                $params['coupon']
+            );
+            $link->setId($params['id']);
+            $link->setToken($params['token']);
+            $link->saveProducts($params['products']);
+
+            $repository = new LinkRepository();
+            $result = $repository->save($link);
+            
+            if ($result) {
+                $this->sendJsonResponse(
+                    'Link succefuly updated!',
+                    true,
+                    200,    
+                    $link->getData()
+                );
+            }
+
+        } catch (\Exception $e) {
+            $this->sendJsonResponse(
+                $e->getMessage(),
+                false,
+                422,
+                []
+            );
+        }
     }
 
     private function insertLink(): array {
@@ -104,5 +138,54 @@ class Links extends Route
         }
 
         return $return;
+    }
+
+    private function validateLinkFields(array $params): void 
+    {
+        $params['id'] = intval($params['id']) && $params['id'] !== 0 ? (int) $params['id'] : false;
+
+        $needed = [
+            'id' => 'integer',
+            'name' => 'string',
+            'token' => 'string',
+            'coupon' => 'string',
+            'expire_at' => 'string',
+            'products' => 'array'
+        ];
+
+        $missing = [];
+        $type_error = [];
+
+        foreach($needed as $key => $item) {
+            if (!isset($params[$key])) {
+                $missing[] = $key;
+
+            } else if (gettype($params[$key]) !== $item) {
+                $type_error[$key] = $item;
+            }
+        }
+
+        if (!empty($missing)) {
+            $this->sendUnprocessableEntity(
+                __('Missing some required fields.', 'wc-payment-link'),
+                ['missing' => $missing]
+            );
+
+        } else if (!empty($type_error)) {
+            $this->sendUnprocessableEntity(
+                __('Some fields do not have the expected types.', 'wc-payment-link'),
+                ['fields' => $type_error]
+            );
+        }
+    }
+
+    private function sendUnprocessableEntity(string $message, array $fields): void
+    {
+        $this->sendJsonResponse(
+            $message,
+            false,
+            422,
+            $fields
+        );
     }
 }

@@ -5,6 +5,7 @@ namespace WCPaymentLink\Model;
 use WCPaymentLink\Infrastructure\Model;
 use WCPaymentLink\Repository\ProductRepository;
 use WC_Coupon;
+use WCPaymentLink\Exceptions\InvalidTokenException;
 
 class LinkModel extends Model
 {
@@ -44,7 +45,13 @@ class LinkModel extends Model
 
     public function setToken(string $token): void
     {
-        $this->token = $token;
+        $isUuid = preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $token);
+        error_log( var_export( $isUuid, true ) );
+        if ($isUuid) {
+            $this->token = $token;
+        } else {
+            throw new InvalidTokenException();
+        }
     }
 
     public function getExpireAt(): ?\DateTime
@@ -94,6 +101,7 @@ class LinkModel extends Model
 
         if ($removed) {
             foreach($products as $product) {
+                $product = is_array($product) ? (object) $product : $product;
                 $object = new ProductModel(
                     $product->product,
                     $product->quantity,
@@ -187,7 +195,7 @@ class LinkModel extends Model
             'coupon'       => $this->coupon,
             'cart_total'   => $this->getCartTotal(),
             'products'     => $this->getProducts(),
-            'expire_at'    => $this->getExpireAt()->format('Y-m-d'),
+            'expire_at'    => $this->getExpireAt()->format('Y-m-d H:i:s'),
             'expire_hour'  => $this->getExpireAt()->format('H'),
             'link_url'     => $this->getLinkUrl()
         ];

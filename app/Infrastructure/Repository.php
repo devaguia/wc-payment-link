@@ -140,7 +140,7 @@ abstract class Repository
 				'previous' => $previous,
 				'next'     => $next,
 				'offset'   => ($page - 1) * $limit,
-				'rows'     => $count->rows
+				'rows'     => (int) $count->rows
 			];
 		}
 
