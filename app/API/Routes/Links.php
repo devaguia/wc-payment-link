@@ -36,42 +36,48 @@ class Links extends Route
             case 'DELETE':
                 $this->removeLink($data->get_params());
                 break;
-            default:
-                $this->sendJsonResponse(
-                    "pong!",
-                );
-                break;
         }
     }
 
-    private function getLinks(array $data): void
+    private function getLinks(array $params): void
     {
-        $id      = isset($data['id']) ? $data['id'] : false;
-        $order   = isset($data['order']) ? $data['order'] : 'ASC';
-        $limit   = isset($data['per_page']) ? $data['per_page'] : 10;
-        $page    = isset($data['page']) ? $data['page'] : 1;
-        $orderBy = isset($data['order_by']) ? $data['order_by'] : '';
+        $id      = isset($params['id']) ? $params['id'] : false;
+        $order   = isset($params['order']) ? $params['order'] : 'ASC';
+        $limit   = isset($params['per_page']) ? $params['per_page'] : 10;
+        $page    = isset($params['page']) ? $params['page'] : 1;
+        $orderBy = isset($params['order_by']) ? $params['order_by'] : '';
 
-        $linkRepository = new LinkRepository();
+        try {
+            $linkRepository = new LinkRepository();
 
-        if ($id) {
-            $links['rows'][] = $linkRepository->findById($id);
-        } else {
-            $links = $linkRepository->findAll(
-                $orderBy,
-                $limit,
-                $page,
-                $order,
-                true
+            if ($id) {
+                $result = $linkRepository->findById($id);
+    
+                if ($result) {
+                    $this->sendJsonResponse('', true, 200, $result->getData());
+                } else {
+                    $this->sendJsonResponse(
+                        __('No link founded!', 'wc-payment-link'),
+                        false,
+                        400,
+                        ["id" => $id]
+                    );
+                }
+            } else {
+                $result = $linkRepository->findAll($orderBy, $limit, $page, $order, true);
+    
+                if ($result) {
+                    $this->sendJsonResponse('', true, 200, $this->formatLinks($result));
+                }
+            }
+        } catch (\Exception $e) {
+            $this->sendJsonResponse(
+                $e->getMessage(),
+                false,
+                422,
+                []
             );
         }
-
-        $this->sendJsonResponse(
-            '',
-            true,
-            200,
-            $this->formatLinks($links)
-        );
     }
 
     private function updateLink(array $params): void
@@ -94,7 +100,7 @@ class Links extends Route
             
             if ($result) {
                 $this->sendJsonResponse(
-                    'Link succefuly updated!',
+                    __('Link succefuly updated!', 'wc-payment-link'),
                     true,
                     200,    
                     $link->getData()
@@ -115,8 +121,40 @@ class Links extends Route
         return [];
     }
 
-    private function removeLink(): bool {
-        return true;
+    private function removeLink(array $params): void
+    {
+        if (!isset($params['id'])) {
+            $this->sendUnprocessableEntity(
+                __('Missing some required fields.', 'wc-payment-link'),
+                ['missing' => ['id']]
+            );
+        }
+
+        try {
+            $repository = new LinkRepository();
+            $link = $repository->findById($params['id']);
+    
+            $result = $repository->remove($link);
+    
+            if ($result) {
+                $this->sendJsonResponse(
+                    __('Link succefuly deleted!', 'wc-payment-link'),
+                    true,
+                    200,    
+                    $link->getData()
+                );
+            } else {
+    
+            }
+        } catch (\Exception $e) {
+            $this->sendJsonResponse(
+                $e->getMessage(),
+                false,
+                422,
+                []
+            );
+        }
+
     }
 
     private function formatLinks(array $links): array
@@ -142,7 +180,7 @@ class Links extends Route
 
     private function validateLinkFields(array $params): void 
     {
-        $params['id'] = intval($params['id']) && $params['id'] !== 0 ? (int) $params['id'] : false;
+        $params['id'] = isset($params['id']) && intval($params['id']) ? (int) $params['id'] : false;
 
         $needed = [
             'id' => 'integer',
