@@ -6,10 +6,7 @@ use DateTime;
 use WCPaymentLink\Model\LinkModel;
 use WCPaymentLink\Repository\LinkRepository;
 
-//TODO: needs authentication to use this API
-//TODO: create operation methods
-//TODO: create api version folder structure
-class Links extends Route
+final class Links extends Route
 {
     public function __construct()
     {
@@ -71,19 +68,24 @@ class Links extends Route
                 }
             }
         } catch (\Exception $e) {
-            $this->sendJsonResponse(
-                $e->getMessage(),
-                false,
-                422,
-                []
-            );
+            $this->sendJsonResponse($e->getMessage(), false, 422, []);
         }
     }
 
     private function updateLink(array $params): void
     {
-        $this->validateLinkFields($params);
-        
+        $this->saveLink($params, 'update');
+    }
+
+    private function insertLink(array $params): void
+    {
+        $this->saveLink($params, 'insert');
+    }
+
+    public function saveLink(array $params, string $type): void
+    {
+        $this->validateLinkFields($params, $type);
+
         try {
             $link = new LinkModel(
                 $params['name'],
@@ -91,34 +93,28 @@ class Links extends Route
                 new DateTime($params['expire_at']),
                 $params['coupon']
             );
-            $link->setId($params['id']);
+
+            if (isset($params['id'])) {
+                $link->setId($params['id']);
+            }
+
             $link->setToken($params['token']);
-            $link->saveProducts($params['products']);
+
 
             $repository = new LinkRepository();
             $result = $repository->save($link);
             
             if ($result) {
-                $this->sendJsonResponse(
-                    __('Link succefuly updated!', 'wc-payment-link'),
-                    true,
-                    200,    
-                    $link->getData()
-                );
+                $link->setId($result);
+                $link->saveProducts($params['products']);
+
+                $message = __('Link succefuly saved!', 'wc-payment-link');
+                $this->sendJsonResponse($message, true, 200, $link->getData());
             }
 
         } catch (\Exception $e) {
-            $this->sendJsonResponse(
-                $e->getMessage(),
-                false,
-                422,
-                []
-            );
+            $this->sendJsonResponse($e->getMessage(), false, 422, []);
         }
-    }
-
-    private function insertLink(): array {
-        return [];
     }
 
     private function removeLink(array $params): void
@@ -178,18 +174,19 @@ class Links extends Route
         return $return;
     }
 
-    private function validateLinkFields(array $params): void 
+    private function validateLinkFields(array $params, string $type): void 
     {
-        $params['id'] = isset($params['id']) && intval($params['id']) ? (int) $params['id'] : false;
-
         $needed = [
-            'id' => 'integer',
             'name' => 'string',
             'token' => 'string',
-            'coupon' => 'string',
             'expire_at' => 'string',
             'products' => 'array'
         ];
+
+        if ($type === 'update') {
+            $params['id'] = isset($params['id']) && intval($params['id']) ? (int) $params['id'] : false;
+            $needed['id'] = 'integer';
+        }
 
         $missing = [];
         $type_error = [];
@@ -226,4 +223,9 @@ class Links extends Route
             $fields
         );
     }
+
+    protected function permissionCallback(): string|bool
+	{
+		return current_user_can('manage_options');
+	}
 }

@@ -11,7 +11,7 @@ abstract class Route
 		register_rest_route($this->namespace, $route, [
 			'methods'  => $methods,
 			'callback' => $callback,
-		    'permission_callback' => '__return_true',
+		    'permission_callback' => $this->permissionCallback(),
 		] );
 	}
 	protected function sendJsonResponse(string $message = '', bool $success = true, int $code = 200, array $data = [])
@@ -47,6 +47,11 @@ abstract class Route
         if ($namespace) {
             $this->namespace .= "/$namespace";
         }
+	}
+
+	protected function permissionCallback(): string|bool
+	{
+		return '__return_true';
 	}
 
 }

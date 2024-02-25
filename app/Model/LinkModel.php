@@ -46,7 +46,6 @@ class LinkModel extends Model
     public function setToken(string $token): void
     {
         $isUuid = preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $token);
-        error_log( var_export( $isUuid, true ) );
         if ($isUuid) {
             $this->token = $token;
         } else {
@@ -100,6 +99,8 @@ class LinkModel extends Model
         $removed = $this->productRepository->removeLinkProducts($this->id);
 
         if ($removed) {
+            $this->products = [];
+
             foreach($products as $product) {
                 $product = is_array($product) ? (object) $product : $product;
                 $object = new ProductModel(
@@ -109,6 +110,11 @@ class LinkModel extends Model
                 );
 
                 $this->productRepository->save($object);
+
+                $this->addProduct(
+                    $product->product,
+                    $product->quantity
+                );
             }
         }
     }
