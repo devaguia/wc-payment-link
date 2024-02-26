@@ -12,8 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Payment links for WooCommerce
 
 = Requisitos =
-
-- PHP versão 7.4 ou superior.
+- PHP version 7.4 or higher.
 
 == Installation ==
 1. Upload this plugin to your WordPress, and activate it;
