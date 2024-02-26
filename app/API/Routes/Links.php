@@ -20,6 +20,8 @@ final class Links extends Route
 
     public function handler(object $data)
     {
+        $this->validateAuthentication($data->get_headers());
+
         switch ($data->get_method()) {
             case 'GET':
                 $this->getLinks($data->get_params());
@@ -223,9 +225,4 @@ final class Links extends Route
             $fields
         );
     }
-
-    protected function permissionCallback(): string|bool
-	{
-		return current_user_can('manage_options');
-	}
 }
