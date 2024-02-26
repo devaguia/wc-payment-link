@@ -6,6 +6,7 @@
 - [Install dependencies](#install)
 - [Build dependencies](#build)
 - [Ignored folders and files](#ignore)
+- [REST API](#api)
 - [File Tree](#tree)
 
 
@@ -48,6 +49,82 @@ yarn build
 **Files**
 - *.lock
 
+
+<h2 id="api">REST API</h1>
+
+### AUTHORIZATION
+Use Basic Authentication para se autenticar e utilizar a REST API do plugin WooCommerce Payment Links;
+<br>
+Example: 
+```PHP
+base64_encode(USER:PASSWORD)
+```
+### GET
+#### Endpoint: 
+```
+https://{domain}/wp-json/wc-payment-link/links/?{id}
+```
+
+Use the endpoint above to make a get request and search for the links registered on your website. You can also use the link ID as a parameter to search for a specific ID.
+
+If necessary, it is possible to provide more information in the body of the request:
+```JSON
+{
+    "page": 1,
+    "per_page": 10,
+    "order":"ASC",
+    "order_by": "name"
+}
+```
+
+### POST
+#### Endpoint:
+```
+https://{domain}/wp-json/wc-payment-link/links/
+```
+Use o método POST para cadastrar novos links usando a REST API. Você vai precisar enviar os dados do link través do corpo da requisição: 
+```JSON
+{
+  "name": "New Link",
+  "token": "3b356f26-6ea8-47ba-8649-d76c89e498be",
+  "coupon": "coupon-code",
+  "expire_at": "2024-02-22 00:00:00",
+  "products": [
+      {
+          "product": 43,
+          "quantity": 4
+      }
+  ]
+}
+```
+
+### PUT
+#### Endpoint:
+```
+https://{domain}/wp-json/wc-payment-link/links/{id}
+```
+Use o método PUT para atualizar os links já cadastrados usando a REST API. Você vai precisar adiocioar o ID do link como parâmetro de URL e enviar os dados do link través do corpo da requisição:
+```JSON
+{
+  "name": "New Link 02",
+  "token": "3b356f26-6ea8-47ba-8649-d76c89e498be",
+  "coupon": "coupon-code",
+  "expire_at": "2024-02-22 00:00:00",
+  "products": [
+      {
+          "product": 43,
+          "quantity": 4
+      }
+  ]
+}
+```
+
+### DELETE
+#### Endpoint:
+```
+https://{domain}/wp-json/wc-payment-link/links/{id}
+```
+Use the DELETE method passing the id of the link you want to remove using the REST API.
 
 <h2 id="tree">File Tree</h2>
 

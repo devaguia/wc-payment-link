@@ -18,21 +18,20 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only"><?= __('Search', 'wc-payment-link'); ?></label>
         <form id="wc-link-search-form" class="flex items-center justify-start" action="admin.php?page=wc-payment-link-links">
             <div class="relative">
-                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                    </svg>
-                </div>
                 <input type="search"
                     name="search"
                     id="default-search"
-                    class="block w-[180px] h-4 !p-4 !ps-10 !text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    class="block w-[180px] h-4 !p-4 !text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="<?= __('Search for links', 'wc-payment-link'); ?>"
                     value="<?=esc_attr( isset($search) ? $search : '')?>"
                 />
             </div>
             <input type="hidden" value="wc-payment-link-links" name="page"/>
-            <button class="ml-2 px-8 py-[8px] bg-blue-600 text-white rounded justify-center hover:bg-[#316beb]"><?php echo __("Search", "wc-payment-link"); ?></button>
+            <button class="ml-2 px-4 py-[8px] text-blue-600 bg-white rounded justify-center shadow-md border-0 border-gray-300">
+                <svg class="w-4 h-4 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </button>
         </form>
     </div>
     <div  class="relative overflow-x-auto shadow-md sm:rounded-lg">

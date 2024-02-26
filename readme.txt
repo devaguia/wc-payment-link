@@ -11,6 +11,9 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 == Description ==
 Payment links for WooCommerce
 
+== Documentation ==
+[Access README.md on our official github](https://github.com/devaguia/wc-payment-link)
+
 = Requisitos =
 - PHP version 7.4 or higher.
 
