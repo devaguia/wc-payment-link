@@ -1,6 +1,6 @@
-# WooCommerce Payment Link
+# WooCommerce Payment Links
 
-**Description:** Template for WordPress plugins
+**Description:** Payment links for WooCommerce
 
 ## Anchors
 - [Install dependencies](#install)
@@ -42,6 +42,8 @@ yarn build
 - dist/
 - node_modules/
 - .cache/
+- .parcel-cache/
+- .idea/
 
 **Files**
 - *.lock
@@ -54,98 +56,82 @@ yarn build
 ├── LICENSE
 ├── README.md
 ├── app
-│   ├── API
-│   │   ├── Routes
-│   │   │   ├── Route.php
-│   │   │   └── TestRoute.php
-│   │   └── Routes.php
-│   ├── Controllers
-│   │   ├── Menus
-│   │   │   └── Settings.php
-│   │   ├── Menus.php
-│   │   └── Render
-│   │       ├── AbstractRender.php
-│   │       └── InterfaceRender.php
-│   ├── Core
-│   │   ├── Boot.php
-│   │   ├── Config.php
-│   │   ├── Export.php
-│   │   ├── Functions.php
-│   │   ├── Uninstall.php
-│   │   └── Utils.php
-│   ├── Helpers
-│   │   └── Helper.php
-│   ├── Model
-│   │   ├── Bootstrap.php
-│   │   ├── Entity
-│   │   │   └── TestEntity.php
-│   │   ├── Infrastructure
-│   │   │   ├── Entity.php
-│   │   │   └── Repository.php
-│   │   └── Repository
-│   │       └── TestRepository.php
-│   ├── Services
-│   │   └── WooCommerce
-│   │       ├── Checkout
-│   │       ├── Logs
-│   │       │   └── Logger.php
-│   │       ├── Orders
-│   │       ├── Thankyou
-│   │       ├── Webhooks
-│   │       ├── Webhooks.php
-│   │       └── WooCommerce.php
-│   └── Views
-│       ├── Admin
-│       │   └── menus
-│       │       └── settings
-│       │           └── index.php
-│       ├── Pages
-│       └── WooCommerce
+│   ├── API
+│   │   ├── Routes
+│   │   │   ├── Links.php
+│   │   │   └── Route.php
+│   │   └── Routes.php
+│   ├── Controllers
+│   │   ├── Menus
+│   │   │   └── Links.php
+│   │   ├── Menus.php
+│   │   ├── Pages
+│   │   │   └── PaymentLink.php
+│   │   └── Render
+│   │       ├── AbstractRender.php
+│   │       └── InterfaceRender.php
+│   ├── Core
+│   │   ├── Boot.php
+│   │   ├── Config.php
+│   │   ├── Export.php
+│   │   ├── Functions.php
+│   │   ├── Uninstall.php
+│   │   └── Utils.php
+│   ├── Exceptions
+│   │   ├── ExpiredTokenException.php
+│   │   └── InvalidTokenException.php
+│   ├── Helpers
+│   │   └── Helper.php
+│   ├── Infrastructure
+│   │   ├── Bootstrap.php
+│   │   ├── Model.php
+│   │   └── Repository.php
+│   ├── Model
+│   │   ├── LinkModel.php
+│   │   └── ProductModel.php
+│   ├── Repository
+│   │   ├── LinkRepository.php
+│   │   └── ProductRepository.php
+│   ├── Services
+│   │   └── WooCommerce
+│   │       ├── Checkout
+│   │       ├── Logs
+│   │       │   └── Logger.php
+│   │       ├── Orders
+│   │       ├── Thankyou
+│   │       ├── Webhooks
+│   │       ├── Webhooks.php
+│   │       └── WooCommerce.php
+│   └── Views
+│       ├── Admin
+│       │   └── menus
+│       │       └── settings
+│       │           ├── index.php
+│       │           └── modal.php
+│       ├── Pages
+│       │   └── checkout
+│       │       └── index.php
+│       └── WooCommerce
 ├── assets
-│   ├── images
-│   │   └── icons
-│   ├── scripts
-│   │   ├── admin
-│   │   │   └── menus
-│   │   │       └── settings
-│   │   │           └── index.js
-│   │   ├── components
-│   │   └── theme
-│   │       └── pages
-│   └── styles
-│       ├── admin
-│       │   ├── base
-│       │   │   ├── _vars.scss
-│       │   │   └── index.scss
-│       │   ├── components
-│       │   ├── index.scss
-│       │   └── menus
-│       │       └── settings
-│       ├── app.css
-│       ├── global
-│       │   ├── base
-│       │   │   ├── _vars.scss
-│       │   │   └── index.scss
-│       │   ├── components
-│       │   │   └── index.scss
-│       │   └── index.scss
-│       └── theme
-│           ├── base
-│           │   ├── _vars.scss
-│           │   └── index.scss
-│           ├── components
-│           ├── index.scss
-│           └── pages
-│               ├── checkout
-│               │   └── index.scss
-│               └── thankyou
-│                   └── index.scss
+│   ├── images
+│   │   └── icons
+│   ├── scripts
+│   │   ├── admin
+│   │   │   └── menus
+│   │   │       └── settings
+│   │   │           ├── index.js
+│   │   │           └── table.js
+│   │   ├── components
+│   │   └── theme
+│   │       └── pages
+│   │           └── checkout
+│   │               └── index.js
+│   └── styles
+│       └── app.css
 ├── composer.json
 ├── package.json
 ├── readme.txt
 ├── tailwind.config.js
-├── tsconfig.json
 └── wc-payment-link.php
-
 ```
 

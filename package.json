@@ -1,7 +1,7 @@
 {
   "name": "wc-payment-link",
   "version": "1.0.0",
-  "description": "Initial setup for wordpress plugin",
+  "description": "Payment links for WooCommerce",
   "repository": "https://github.com/devaguia/wc-payment-link",
   "author": "Matheus Aguiar",
   "license": "GPL-3.0",

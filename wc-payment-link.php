@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WooCommerce Payment Link
+ * Plugin Name: WooCommerce Payment Links
  * Plugin URI:  https://github.com/devaguia/
  * Description: Initial setup for wordpress plugin
  * Author:      Matheus Aguiar
@@ -18,10 +18,10 @@ if (version_compare(phpversion(), '7.4') < 0) {
 	wp_die(
 		sprintf(
 			"%s <p>%s</p>",
-			__("The WooCommerce Payment Link isn't compatible to your PHP version. ", 'wc-payment-link'),
+			__("The WooCommerce Payment Links isn't compatible to your PHP version. ", 'wc-payment-link'),
 			__('The PHP version has to be a less 7.4!', 'wc-payment-link')
 		),
-		'The WooCommerce Payment Link -- Error',
+		'The WooCommerce Payment Links -- Error',
 		['back_link' => true]
 	);
 }

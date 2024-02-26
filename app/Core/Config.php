@@ -47,7 +47,7 @@ class Config
 
     public function pluginName(): string
     {
-        return __('WooCommerce Payment Link', 'wc-payment-link');
+        return __('WooCommerce Payment Links', 'wc-payment-link');
     }
 
     public function pluginSlug(): string

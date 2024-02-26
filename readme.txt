@@ -1,4 +1,4 @@
-=== WooCommerce Payment Link ===
+=== WooCommerce Payment Links ===
 Contributors: aguiart0
 Tags: setup
 Requires at least: 5.0
@@ -8,10 +8,8 @@ Requires PHP: 8.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Duplicate your images as many times as you want.
-
 == Description ==
-Initial setup for wordpress plugin
+Payment links for WooCommerce
 
 = Requisitos =
 
@@ -19,11 +17,13 @@ Initial setup for wordpress plugin
 
 == Installation ==
 1. Upload this plugin to your WordPress, and activate it;
+2. Access the Payment Links submenu of the WooCommerce menu
+3. register as many payment links as you want 
 
 == Screenshots ==
 - Screenshots
 
 == Changelog ==
 
-= 1.0.0 = 22022-08-11
+= 1.0.0 = 26-02-2024
 * Initial Release
