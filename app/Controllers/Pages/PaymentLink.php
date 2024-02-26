@@ -5,6 +5,7 @@ namespace WCPaymentLink\Controllers\Pages;
 use DateTime;
 use Exception;
 use WCPaymentLink\Controllers\Render\AbstractRender;
+use WCPaymentLink\Exceptions\ExpiredTokenException;
 use WCPaymentLink\Repository\LinkRepository;
 use WCPaymentLink\Services\WooCommerce\Logs\Logger;
 
@@ -31,7 +32,7 @@ class PaymentLink extends AbstractRender
                 $link = array_shift($links);
                 
                 if ($link->getExpireAt() <= new DateTime()) {
-                    throw new Exception(__('Expired token: ', 'wc-payment-link') . $link->getToken());
+                    throw new ExpiredTokenException($link->getToken());
                 }
 
                 $woocommerce->cart->empty_cart();
