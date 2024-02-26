@@ -201,7 +201,7 @@ class LinkModel extends Model
             'coupon'       => $this->coupon,
             'cart_total'   => $this->getCartTotal(),
             'products'     => $this->getProducts(),
-            'expire_at'    => $this->getExpireAt()->format('Y-m-d H:i:s'),
+            'expire_at'    => $this->getExpireAt()->format('Y-m-d'),
             'expire_hour'  => $this->getExpireAt()->format('H'),
             'link_url'     => $this->getLinkUrl()
         ];

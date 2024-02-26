@@ -130,7 +130,6 @@ class Settings
 
     fillModalFields(fields) {
         const object = JSON.parse(fields);
-
         if (object) {
             for (const key in object) {
                 const element = document.querySelector(`#${key}`);
@@ -168,7 +167,7 @@ class Settings
             productsElements.forEach(element => {
                 const checkbox = element.querySelector('.product-checkbox');
                 const number = element.querySelector('.product-number');
-                console.log(parseInt(checkbox.getAttribute('data-id')),product.product );
+
                 if (parseInt(checkbox.getAttribute('data-id')) === product.product) {
                     checkbox.checked = true;
                     number.value = product.quantity

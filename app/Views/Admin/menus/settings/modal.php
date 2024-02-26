@@ -5,7 +5,7 @@
  */
 ?>
 
-<div id="link-form" class="flex absolute z-1000 left-0 top-0 w-full h-full overflow-auto items-center justify-center bg-black bg-opacity-0 hidden">
+<div id="link-form" class="flex absolute z-1000 left-0 top-[100px] w-full h-fit overflow-auto items-center justify-center bg-black bg-opacity-0 hidden">
     <form class="bg-white rounded-md py-10 px-10 max-w-screen-4xl shadow-xl" method="post">
         <div>
             <span id="close-link-form" class="relative hover:cursor-pointer text-2xl font-bold float-right left-2 bottom-6"><i class="fa-solid fa-xmark"></i></span>
@@ -43,7 +43,7 @@
                 <div class="py-1">
                     <label><?= __('Expire at:', 'wc-payment-link'); ?></label>
                     <div class="flex flex-row items-center justify-center gap-2 max-w-60">
-                        <input class="w-full h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="date" id="expire_at" name="expire_at">
+                        <input class="w-full h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="date" min="<?= esc_attr(date('Y-m-d')); ?>" id="expire_at" name="expire_at">
                         <label><?= __('H:', 'wc-payment-link'); ?></label>
                         <input class="w-16 h-10 bg-white outline-0 border-none shadow-md rounded-md" aria-label="none" type="number" min="0" max="23" id="expire_hour" name="hour">
                     </div>

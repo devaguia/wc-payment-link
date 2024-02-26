@@ -44,7 +44,7 @@ class Functions
         if ($name === wplConfig()->baseFile()) {
 
             $label = sprintf(
-                '<a href="admin.php?page=wc-plugin-template-settings" id="deactivate-wc-plugin-template" aria-label="%s">%s</a>',
+                '<a href="admin.php?page=wc-payment-link-links" id="deactivate-wc-plugin-template" aria-label="%s">%s</a>',
                 __('Links', 'wc-plugin-template'),
                 __('Links', 'wc-plugin-template')
             );
