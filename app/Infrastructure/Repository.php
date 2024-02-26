@@ -90,10 +90,14 @@ abstract class Repository
 		return $this->db->insert($this->table, $fields);
 	}
 
-	public function findAll(string $orderBy = '', int $limit = 10, int $page = 1, string $order = 'ASC', bool $fill = false): array
+	public function findAll(string $orderBy = '', int $limit = 10, int $page = 1, string $order = 'ASC', bool $fill = false, string $search = ''): array
 	{
 		$result = [];
-		$query = "SELECT * FROM {$this->table}";
+		$query = "";
+
+		if ($search) {
+			$query .= " WHERE `name` like '%{$search}%'";
+		}
 
 		if ($orderBy) {
             $order = $order === 'DESC' ? 'DESC' : 'ASC';
@@ -101,13 +105,13 @@ abstract class Repository
 		}
 
 		if ($limit > 0) {
-			$result['pagination'] = $this->getPagination($limit, $page);
+			$result['pagination'] = $this->getPagination($query, $limit, $page);
 			$offset = $result['pagination']['offset'];
 
 			$query .= " LIMIT {$offset},{$limit}";
 		}
 
-		$query.= ";";
+		$query = "SELECT * FROM {$this->table}{$query};";
 
         if ($fill) {
             $rows = [];
@@ -123,9 +127,9 @@ abstract class Repository
 		return $result ;
 	}
 
-	public function getPagination(int $limit, int $page): array
+	public function getPagination(string $query, int $limit, int $page): array
 	{
-		$result = $this->query("SELECT COUNT(*) AS 'rows' FROM {$this->table};");
+		$result = $this->query("SELECT COUNT(*) AS 'rows' FROM {$this->table}{$query};");
 		if ($result) {
 			$count = array_shift($result);
 

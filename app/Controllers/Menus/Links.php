@@ -190,6 +190,7 @@ class Links extends AbstractRender
         $orderBy = filter_input( INPUT_GET, 'orderby', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '';
         $order = filter_input( INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '';
         $page  = filter_input( INPUT_GET, 'table-page', FILTER_SANITIZE_NUMBER_INT ) ?? 1;
+        $search  = filter_input( INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS ) ?? '';
 
         $this->fields['links'] = [];
 
@@ -198,13 +199,16 @@ class Links extends AbstractRender
             10,
             $page,
             $order,
-            true
+            true,
+            $search
         );
 
         if (isset($links['rows'])) {
             $this->fields['links'] = $links['rows'];
             $this->fields['pagination'] = $links['pagination'] ?? [];
         }
+
+        $this->fields['search'] = $search ?? '';
     }
 
     public function request(): void
