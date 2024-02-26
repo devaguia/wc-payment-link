@@ -11,6 +11,11 @@ class Boot
             'initialize'
         ]);
 
+        add_action('init', [
+            new Functions,
+            'defineCustomPayPermalink'
+        ]);
+
         add_action('admin_init', [
             new Functions,
             'desactivationFunction'
@@ -44,6 +49,11 @@ class Boot
         add_action('rest_api_init', [
             new Functions,
             'registerRestAPI'
+        ]);
+
+        add_action('template_redirect', [
+            new Functions,
+            'customPayCheckout'
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace WCPaymentLink\Core;
 
 use WCPaymentLink\API\Routes;
 use WCPaymentLink\Controllers\Menus;
+use WCPaymentLink\Controllers\Pages\PaymentLink;
 use WCPaymentLink\Services\WooCommerce\WooCommerce;
 
 class Functions
@@ -13,6 +14,12 @@ class Functions
         load_plugin_textdomain(wplConfig()->pluginSlug(), false);
     }
 
+    public function defineCustomPayPermalink(): void
+    {
+        add_rewrite_rule('^pay/([^/]+)/?', 'index.php?token=$matches[1]', 'top');
+        add_rewrite_tag('%token%', '([^&]+)');
+        flush_rewrite_rules();
+    }
 
     public function createAdminMenu(): void
     {
@@ -123,5 +130,14 @@ class Functions
     {
         $routes = new Routes();
         $routes->register();
+    }
+
+    public function customPayCheckout(): void
+    {
+        global $wp;
+        if (isset($wp->query_vars['token'])) {
+            $paymentLink = new PaymentLink($wp->query_vars['token']);
+            $paymentLink->request();
+        };
     }
 }

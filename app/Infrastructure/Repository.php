@@ -163,11 +163,11 @@ abstract class Repository
 		}
 	}
 
-	protected function findBy(string $be, string $like, $fill = true): array | bool
+	public function findBy(string $be, string $like, $fill = true): array | bool
 	{
-		$query = "SELECT * FROM {$this->table} WHERE {$be} = {$like};";
+		$query = "SELECT * FROM {$this->table} WHERE `{$be}` = '{$like}';";
 		$rows = [];
-
+		
 		try {
 			if ($fill) {
 				foreach($this->query($query) as $item) {
