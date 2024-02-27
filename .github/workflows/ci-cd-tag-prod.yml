@@ -26,11 +26,11 @@ jobs:
 
       - name: Remove developer folders
         run: |
-          rm -r -f tests/
           rm -r -f build/
           rm -r -f node_modules/
           rm -r -f .vscode/
           rm -r -f .parcel-cache/
+          rm -r -f .idea/
           rm -r -f tests/
 
       - name: Remove developer files
@@ -42,13 +42,10 @@ jobs:
           rm -f yarn.lock
           rm -f README.md
           rm -f .gitignore
-          rm -f tsconfig.json
-          rm -f phpunit.xml
 
       - name: Create a new GitHub tag
         run: |
           TAG_VERSION=$(bash .github/tag.sh)
-          sudo rm -r -f .github/
 
           git config --global user.email "matheus@aguia.dev"
           git config --global user.name "Matheus Aguiar"
