@@ -1,4 +1,4 @@
-# WooCommerce Payment Links
+# WC Payment Links
 
 **Description:** Payment links for WooCommerce
 
@@ -53,7 +53,7 @@ yarn build
 <h2 id="api">REST API</h1>
 
 ### AUTHORIZATION
-Use Basic Authentication para se autenticar e utilizar a REST API do plugin WooCommerce Payment Links;
+Use Basic Authentication para se autenticar e utilizar a REST API do plugin WC Payment Links;
 <br>
 Example: 
 ```PHP
