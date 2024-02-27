@@ -43,7 +43,7 @@ jobs:
 
       - name: Creating a new GitHub tag 🤖
         run: |
-          TAG_VERSION=$(bash .github/tags.sh)
+          TAG_VERSION=$(bash .github/tag.sh)
           rm -r -f .github/
 
           git config --global user.email "aguiartgv@gmail.com"
