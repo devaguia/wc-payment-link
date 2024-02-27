@@ -1,30 +1,28 @@
-name: Generate github production tag
+name: Generate github tag version ☕
 
 on:
   push:
     branches: [master]
-  pull_request:
-    branches: [master]
 
 jobs:
   build:
-    if: "contains(github.event.head_commit.message, '--release')"
+    if: "!contains(github.event.head_commit.message, '--skip-tagging')"
     
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Composer dependencies
+      - name: Installing Composer dependencies ⬇️
         run: composer install --prefer-dist --no-progress
 
-      - name: Install node dependencies
+      - name: Installing Node dependencies ⬇️
         run: yarn install --frozen-lockfile --prefer-offline
 
-      - name: Build node dependencies
+      - name: Building node dependencies 🧱
         run: yarn build
 
-      - name: Remove developer folders
+      - name: Removing development folders 🗑️
         run: |
           rm -r -f build/
           rm -r -f node_modules/
@@ -33,7 +31,7 @@ jobs:
           rm -r -f .idea/
           rm -r -f tests/
 
-      - name: Remove developer files
+      - name: Removing development files 🗑️
         run: |
           rm -f composer.json
           rm -f composer.lock
@@ -43,13 +41,12 @@ jobs:
           rm -f README.md
           rm -f .gitignore
 
-      - name: Create a new GitHub tag
+      - name: Creating a new GitHub tag 🤖
         run: |
-          TAG_VERSION=$(bash .github/tag.sh)
-          sudo rm -r -f .github/
-          echo $TAG_VERSION;
+          TAG_VERSION=$(bash .github/tags.sh)
+          rm -r -f .github/
 
-          git config --global user.email "matheus@aguia.dev"
+          git config --global user.email "aguiartgv@gmail.com"
           git config --global user.name "Matheus Aguiar"
 
           git add .
