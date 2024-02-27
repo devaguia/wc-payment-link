@@ -1,42 +1,40 @@
-name: Generate github stage tag
+name: Generate github stage tag version ☕
 
 on:
   push:
     branches: [stage]
-  pull_request:
-    branches: [stage]
 
 jobs:
   build:
-    if: "contains(github.event.head_commit.message, '--realease')"
+    if: "contains(github.event.head_commit.message, '--release')"
 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Composer dependencies
+      - name: Installing Composer dependencies ⬇️
         run: composer install --prefer-dist --no-progress
 
-      - name: Install node dependencies
+      - name: Installing Node dependencies ⬇️
         run: yarn install --frozen-lockfile --prefer-offline
 
-      - name: Build node dependencies
+      - name: Building node dependencies 🧱
         run: yarn build
 
-      - name: Remove cache folder
+      - name: Removing cache folder 🗑️
         run: |
           rm -r -f .parcel-cache/
 
-      - name: Remove git files
+      - name: Removing git files 🗑️
         run: |
           rm -f .gitignore
 
-      - name: Create a new GitHub stage tag
+      - name: Creating a new GitHub tag 🤖
         run: |
           TAG_VERSION=$(bash .github/tag.sh)
 
-          git config --global user.email "aguiartgv@gmail.com"
+          git config --global user.email "matheus@aguia.dev"
           git config --global user.name "Matheus Aguiar"
 
           git add .
