@@ -46,6 +46,8 @@ jobs:
       - name: Create a new GitHub tag
         run: |
           TAG_VERSION=$(bash .github/tag.sh)
+          sudo rm -r -f .github/
+          echo $TAG_VERSION;
 
           git config --global user.email "matheus@aguia.dev"
           git config --global user.name "Matheus Aguiar"
