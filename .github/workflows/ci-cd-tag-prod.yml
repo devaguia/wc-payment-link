@@ -33,8 +33,8 @@ jobs:
 
       - name: Removing development files 🗑️
         run: |
-          rm -f composer.json
           rm -f composer.lock
+          rm -f package.json
           rm -f package-json.lock
           rm -f yarn.lock
           rm -f README.md
