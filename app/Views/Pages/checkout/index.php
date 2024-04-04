@@ -1,7 +1,9 @@
 <?php
 /**
- * template: wp-content/plugins/wc-plugin-template/app/Views/Pages/checkout/index.php
+ * template: wp-content/plugins/wc-payment-link/app/Views/Pages/checkout/index.php
  */
+
+ if ( ! defined( 'ABSPATH' ) ) exit; 
 ?>
 <title><?php echo get_the_title();?></title>
 <?php get_header(); ?>

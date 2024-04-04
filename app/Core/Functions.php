@@ -11,7 +11,7 @@ class Functions
 {
     public function initialize(): void
     {
-        load_plugin_textdomain(wplConfig()->pluginSlug(), false);
+        load_plugin_textdomain(wcplConfig()->pluginSlug(), false);
     }
 
     public function defineCustomPayPermalink(): void
@@ -41,12 +41,12 @@ class Functions
 
     public function setSettingsLink(array $arr, string $name): array
     {
-        if ($name === wplConfig()->baseFile()) {
+        if ($name === wcplConfig()->baseFile()) {
 
             $label = sprintf(
-                '<a href="admin.php?page=wc-payment-link-links" id="deactivate-wc-plugin-template" aria-label="%s">%s</a>',
-                __('Links', 'wc-plugin-template'),
-                __('Links', 'wc-plugin-template')
+                '<a href="admin.php?page=wc-payment-link-links" id="deactivate-wc-payment-link" aria-label="%s">%s</a>',
+                __('Links', 'wc-payment-link'),
+                __('Links', 'wc-payment-link')
             );
 
             $arr['settings'] = $label;
@@ -57,7 +57,7 @@ class Functions
 
     public function activationFunction(string $plugin): void
     {
-        if (wplConfig()->baseFile() === $plugin) {
+        if (wcplConfig()->baseFile() === $plugin) {
             $boot = new \WCPaymentLink\Infrastructure\Bootstrap();
             $boot->initialize();
         }
@@ -69,10 +69,10 @@ class Functions
             return;
         }
 
-        $action = $_REQUEST['action'] ?? false;
-        $plugin = $_REQUEST['plugin'] ?? false;
+        $action = filter_var($_REQUEST['action'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $plugin = filter_var($_REQUEST['plugin'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if ($action === 'deactivate' && $plugin === wplConfig()->baseFile()) {
+        if ($action === 'deactivate' && $plugin === wcplConfig()->baseFile()) {
             $uninstall = new Uninstall;
             $uninstall->reset();
         }
@@ -94,7 +94,7 @@ class Functions
         $plugins = wp_get_active_and_valid_plugins();
 
         $neededs = [
-            'WooCommerce' => wplConfig()->dynamicDir( __DIR__, 3 ) . '/woocommerce/woocommerce.php'
+            'WooCommerce' => wcplConfig()->dynamicDir( __DIR__, 3 ) . '/woocommerce/woocommerce.php'
         ];
 
         foreach ($neededs as $key => $needed ) {
@@ -109,11 +109,11 @@ class Functions
     public function displayDependencyNotice(): void
     {
         $class = 'notice notice-error';
-        $title = __('WC Payment Links', 'wc-plugin-template');
+        $title = __('WC Payment Links', 'wc-payment-link');
 
         $message = __(
             'This plugin needs the following plugins to work properly:',
-            'wc-plugin-template'
+            'wc-payment-link'
         );
 
         $keys = array_keys(self::getMissingDependencies());

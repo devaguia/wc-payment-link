@@ -5,12 +5,15 @@
  * Description: Payment links for WooCommerce
  * Author:      Matheus Aguiar
  * Author URI:  https://github.com/devaguia/
+ * License:     GPL v3 or later
  * Version: 1.0.0
  *
  * @link    https://github.com/devaguia/
  * @since   1.0.0
  * @package WCPaymentLink
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit; 
 
 require_once __DIR__ . '/vendor/autoload.php';
 

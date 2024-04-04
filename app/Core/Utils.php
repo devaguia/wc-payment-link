@@ -9,10 +9,10 @@ class Utils
         extract($data);
         ob_start();
 
-        $template = get_template_directory() . "/". wplConfig()->baseFolder() ."/$file";
+        $template = get_template_directory() . "/". wcplConfig()->baseFolder() ."/$file";
 
         if (!file_exists($template)) {
-            $template = wplConfig()->viewsDir($file);
+            $template = wcplConfig()->viewsDir($file);
         }
 
         if (file_exists($template)) {

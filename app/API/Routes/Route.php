@@ -2,6 +2,9 @@
 
 namespace WCPaymentLink\API\Routes;
 
+use Exception;
+use Throwable;
+
 abstract class Route
 {
 	private string $namespace;
@@ -42,7 +45,7 @@ abstract class Route
 
 	protected function setNamespace(string $namespace = ''): void
 	{
-		$this->namespace = wplConfig()->pluginSlug();
+		$this->namespace = wcplConfig()->pluginSlug();
 
         if ($namespace) {
             $this->namespace .= "/$namespace";
@@ -53,22 +56,30 @@ abstract class Route
 	{
 		$logged = false;
 
-		if (isset($headers['authorization']) && is_array($headers['authorization'])) {
-			$auth = array_shift($headers['authorization']);
-			$basic = explode(':', base64_decode(str_replace('Basic ', '', $auth)));
-
-			if (is_array($basic) && count($basic) === 2) {
-				$logged = wp_login( $basic[0], $basic[1]);
+		try {
+			if (isset($headers['authorization']) && is_array($headers['authorization'])) {
+				$auth = array_shift($headers['authorization']);
+				$basic = explode(':', base64_decode(str_replace('Basic ', '', $auth)));
+	
+				if (is_array($basic) && count($basic) === 2) {
+					$logged = wp_signon([
+						'user_login' => $basic[0],
+						'user_password' => $basic[1]]
+					);
+				}
 			}
-		}
 
-		if (!$logged) {
+			if (!$logged || is_wp_error($logged) || !in_array('administrator', $logged->roles)) {
+				throw new Exception(__('User not authorized! Please, contact the site adminstrator', 'wc-payment-link'));
+			}
+	
+
+		} catch (Throwable $t) {
 			$this->sendJsonResponse(
-				__('User not authorized! Please, contact the site adminstrator.'),
+				$t->getMessage(),
 				false,
 				401
 			);
 		}
 	}
-
 }

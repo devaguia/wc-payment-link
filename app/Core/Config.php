@@ -31,12 +31,12 @@ class Config
 
     public function mainFileDir(): string
     {
-        return $this->dynamicDir() . '/' . wplConfig()->pluginSlug() . ".php";
+        return $this->dynamicDir() . '/' . wcplConfig()->pluginSlug() . ".php";
     }
 
     public function baseFile(): string
     {
-        return $this->baseFolder() . '/' . wplConfig()->pluginSlug() . ".php";
+        return $this->baseFolder() . '/' . wcplConfig()->pluginSlug() . ".php";
     }
 
     public function baseFolder(): string

@@ -19,7 +19,7 @@ class Menus {
         foreach ($controllers as $key => $controller) {
 
             $slug     = $this->getMenuSlug($controller[0]);
-            $function = wplConfig()->pluginNamespace() . "\\Controllers\\Menus\\$controller[0]";
+            $function = wcplConfig()->pluginNamespace() . "\\Controllers\\Menus\\$controller[0]";
             $menu     = [
                 'title'    => $controller[1],
                 'slug'     => 'wc-payment-link-' . $slug,
@@ -68,6 +68,6 @@ class Menus {
         }
 
         ## Remove default submenu
-        remove_submenu_page(wplConfig()->pluginSlug() ,wplConfig()->pluginSlug());
+        remove_submenu_page(wcplConfig()->pluginSlug() ,wcplConfig()->pluginSlug());
     }
 }

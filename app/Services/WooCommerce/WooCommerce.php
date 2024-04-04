@@ -12,7 +12,7 @@ class WooCommerce
 
     public function setOverwrittenWoocommerceTemplates($template, $templateName, $template_path)
     {
-        $templateDir = wplConfig()->viewsDir() . 'WooCommerce/';
+        $templateDir = wcplConfig()->viewsDir() . 'WooCommerce/';
 
         $path = $templateDir . $templateName;
 
@@ -21,7 +21,7 @@ class WooCommerce
 
     public function overrideWoocommerceTemplatePart($template, $slug, $name)
     {
-        $template_directory = wplConfig()->viewsDir() . 'WooCommerce/';
+        $template_directory = wcplConfig()->viewsDir() . 'WooCommerce/';
         $path = $name ? $template_directory . "{$slug}-{$name}.php" : $template_directory . "{$slug}.php";
 
         return file_exists( $path ) ? $path : $template;

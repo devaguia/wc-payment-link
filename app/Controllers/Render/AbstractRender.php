@@ -9,13 +9,13 @@ abstract class AbstractRender implements InterfaceRender
 
     protected function enqueueScripts(array $script): void
     {
-        $link = isset($script['external']) ? $script['external'] : wplConfig()->distUrl($script['file']);
+        $link = isset($script['external']) ? $script['external'] : wcplConfig()->distUrl($script['file']);
         wp_enqueue_script($script['name'], $link);
     }
 
     protected function enqueueStyles(array $style): void
     {
-        $link = isset($style['external']) ? $style['external'] : wplConfig()->distUrl($style['file']);
+        $link = isset($style['external']) ? $style['external'] : wcplConfig()->distUrl($style['file']);
         wp_enqueue_style($style['name'], $link);
     }
 
@@ -29,6 +29,6 @@ abstract class AbstractRender implements InterfaceRender
     public function render(string $file, array $data): string
     {
         $this->enqueueDefault();
-        return wplUtils()->render($file, $data);
+        return wcplUtils()->render($file, $data);
     }
 }
