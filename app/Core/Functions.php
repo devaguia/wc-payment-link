@@ -11,7 +11,7 @@ class Functions
 {
     public function initialize(): void
     {
-        load_plugin_textdomain(wplConfig()->pluginSlug(), false);
+        load_plugin_textdomain(wcplConfig()->pluginSlug(), false);
     }
 
     public function defineCustomPayPermalink(): void
@@ -41,7 +41,7 @@ class Functions
 
     public function setSettingsLink(array $arr, string $name): array
     {
-        if ($name === wplConfig()->baseFile()) {
+        if ($name === wcplConfig()->baseFile()) {
 
             $label = sprintf(
                 '<a href="admin.php?page=wc-payment-link-links" id="deactivate-wc-plugin-template" aria-label="%s">%s</a>',
@@ -57,7 +57,7 @@ class Functions
 
     public function activationFunction(string $plugin): void
     {
-        if (wplConfig()->baseFile() === $plugin) {
+        if (wcplConfig()->baseFile() === $plugin) {
             $boot = new \WCPaymentLink\Infrastructure\Bootstrap();
             $boot->initialize();
         }
@@ -72,7 +72,7 @@ class Functions
         $action = filter_var($_REQUEST['action'], FILTER_SANITIZE_SPECIAL_CHARS);
         $plugin = filter_var($_REQUEST['plugin'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if ($action === 'deactivate' && $plugin === wplConfig()->baseFile()) {
+        if ($action === 'deactivate' && $plugin === wcplConfig()->baseFile()) {
             $uninstall = new Uninstall;
             $uninstall->reset();
         }
@@ -94,7 +94,7 @@ class Functions
         $plugins = wp_get_active_and_valid_plugins();
 
         $neededs = [
-            'WooCommerce' => wplConfig()->dynamicDir( __DIR__, 3 ) . '/woocommerce/woocommerce.php'
+            'WooCommerce' => wcplConfig()->dynamicDir( __DIR__, 3 ) . '/woocommerce/woocommerce.php'
         ];
 
         foreach ($neededs as $key => $needed ) {

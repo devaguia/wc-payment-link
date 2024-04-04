@@ -42,7 +42,7 @@ abstract class Route
 
 	protected function setNamespace(string $namespace = ''): void
 	{
-		$this->namespace = wplConfig()->pluginSlug();
+		$this->namespace = wcplConfig()->pluginSlug();
 
         if ($namespace) {
             $this->namespace .= "/$namespace";

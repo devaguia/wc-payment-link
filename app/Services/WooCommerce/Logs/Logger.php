@@ -14,7 +14,7 @@ class Logger
   {
     $this->wc      = new WC_Logger();
     $this->enabled = $enabled;
-    $this->prefix  = wplConfig()->pluginSlug();
+    $this->prefix  = wcplConfig()->pluginSlug();
   }
 
   public function add($var, string $type = 'database'): void
