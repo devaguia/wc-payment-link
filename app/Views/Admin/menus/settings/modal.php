@@ -3,6 +3,8 @@
  * template: wp-content/plugins/wc-plugin-template/app/Views/Admin/settings/modal.php
  * @var array $products
  */
+
+if ( ! defined( 'ABSPATH' ) ) exit; 
 ?>
 
 <div id="link-form" class="flex absolute z-1000 left-0 top-[100px] w-full h-fit overflow-auto items-center justify-center bg-black bg-opacity-0 hidden">
