@@ -8,22 +8,22 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
 ?>
 <div class="wrap wpl-wrap px-8">
     <div class="my-4 flex align-middle">
-        <h1 id="table-desc" class="text-3xl"><?php echo __('Payment Links', 'wc-payment-link'); ?></h1>
+        <h1 id="table-desc" class="text-3xl"><?php echo esc_html__('Payment Links', 'wc-payment-link'); ?></h1>
         <button id="add-payment-link" class="ml-4 p-8 pt-1 pb-1 bg-blue-600 text-white rounded justify-center hover:bg-[#316beb]">
-            <?php echo __('New payment link', 'wc-payment-link'); ?>
+            <?php echo esc_html__('New payment link', 'wc-payment-link'); ?>
         </button>
     </div>
     <hr class="mb-5"/>
     <div class="mb-5 w-1/2">
-        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only"><?php echo __('Search', 'wc-payment-link'); ?></label>
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only"><?php echo esc_html__('Search', 'wc-payment-link'); ?></label>
         <form id="wc-link-search-form" class="flex items-center justify-start" action="admin.php?page=wc-payment-link-links">
             <div class="relative">
                 <input type="search"
                     name="search"
                     id="default-search"
                     class="block w-[180px] h-4 !p-4 !text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="<?php echo __('Search for links', 'wc-payment-link'); ?>"
-                    value="<?php echo esc_attr( isset($search) ? $search : '')?>"
+                    placeholder="<?php echo esc_attr__('Search for links', 'wc-payment-link'); ?>"
+                    value="<?php echo esc_attr__( isset($search) ? $search : '')?>"
                 />
             </div>
             <input type="hidden" value="wc-payment-link-links" name="page"/>
@@ -41,7 +41,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 <th scope="col" class="px-6 py-3">
                     <div>
                         <a class="flex items-center cursor-pointer order-table" data-order="name">
-                            <?php echo __('Link Name', 'wc-payment-link'); ?>
+                            <?php echo esc_html__('Link Name', 'wc-payment-link'); ?>
                             <?php echo $orderBySvg ?>
                         </a>
                     </div>
@@ -49,7 +49,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 <th scope="col" class="px-6 py-3">
                     <div>
                         <a class="flex items-center cursor-pointer order-table" data-order="expire_at">
-                            <?php echo __('Expire at', 'wc-payment-link'); ?>
+                            <?php echo esc_html__('Expire at', 'wc-payment-link'); ?>
                             <?php echo $orderBySvg ?>
                         </a>
                     </div>
@@ -57,7 +57,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 <th scope="col" class="px-6 py-3">
                     <div>
                         <a class="flex items-center cursor-pointer order-table" data-order="token">
-                            <?php echo __('Token', 'wc-payment-link'); ?>
+                            <?php echo esc_html__('Token', 'wc-payment-link'); ?>
                             <?php echo $orderBySvg ?>
                         </a>
                     </div>
@@ -65,21 +65,21 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                 <th scope="col" class="px-6 py-3">
                     <div>
                         <a class="flex items-center cursor-pointer">
-                            <?php echo __('Products', 'wc-payment-link'); ?>
+                            <?php echo esc_html__('Products', 'wc-payment-link'); ?>
                         </a>
                     </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <div>
                         <a class="flex items-center cursor-pointer">
-                            <?php echo __('Cart Total', 'wc-payment-link'); ?>
+                            <?php echo esc_html__('Cart Total', 'wc-payment-link'); ?>
                         </a>
                     </div>
                 </th>
                 <th scope="col" class="px-6 py-3">
                     <div>
                         <a class="flex items-center cursor-pointer">
-                            <?php echo __('Actions', 'wc-payment-link'); ?>
+                            <?php echo esc_html__('Actions', 'wc-payment-link'); ?>
                         </a>
                     </div>
                 </th>
@@ -133,7 +133,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                     <li>
                         <a data-page="<?php echo $pagination['current'] - 1 ?: 1 ?>"
                            class="pagination ml-0 rounded-l-lg flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 bg-white border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <?php echo __('Previous', 'wc-payment-link');?>
+                            <?php echo esc_html__('Previous', 'wc-payment-link');?>
                         </a>
                     </li>
                     <?php for($i = 1; $i <= $pagination['pages']; $i++): ?>
@@ -151,7 +151,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                         <a data-page="<?php echo min( $pagination['current'] + 1, $pagination['pages']) ?>"
                            class="pagination rounded-r-lg flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 bg-white border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                         >
-                            <?php echo __('Next', 'wc-payment-link');?>
+                            <?php echo esc_html__('Next', 'wc-payment-link');?>
                         </a>
                     </li>
                 </ul>
