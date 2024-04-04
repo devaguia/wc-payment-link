@@ -69,8 +69,8 @@ class Functions
             return;
         }
 
-        $action = $_REQUEST['action'] ?? false;
-        $plugin = $_REQUEST['plugin'] ?? false;
+        $action = filter_var($_REQUEST['action'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $plugin = filter_var($_REQUEST['plugin'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         if ($action === 'deactivate' && $plugin === wplConfig()->baseFile()) {
             $uninstall = new Uninstall;
