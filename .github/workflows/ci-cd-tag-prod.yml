@@ -39,6 +39,7 @@ jobs:
           rm -f yarn.lock
           rm -f README.md
           rm -f .gitignore
+          rm -f tailwind.config.js
 
       - name: Creating a new GitHub tag 🤖
         run: |
