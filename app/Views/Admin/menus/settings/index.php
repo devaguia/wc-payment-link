@@ -1,6 +1,6 @@
 <?php
 /**
- * template: wp-content/plugins/wc-plugin-template/app/Views/Admin/settings/index.php
+ * template: wp-content/plugins/wc-payment-link/app/Views/Admin/settings/index.php
  * @var \WCPaymentLink\Model\LinkModel[] $links
  */
 

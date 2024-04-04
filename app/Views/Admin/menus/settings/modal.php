@@ -1,6 +1,6 @@
 <?php
 /**
- * template: wp-content/plugins/wc-plugin-template/app/Views/Admin/settings/modal.php
+ * template: wp-content/plugins/wc-payment-link/app/Views/Admin/settings/modal.php
  * @var array $products
  */
 
