@@ -19,13 +19,16 @@
     "webpack-cli": "5.1.4"
   },
   "scripts": {
-    "build": "parcel build ./assets/scripts/**/**/**/*.js  --dist-dir ./dist/scripts/ && npx tailwindcss -i ./assets/styles/app.css -o ./dist/styles/app.css",
-    "watch": "npx tailwindcss -i ./assets/styles/app.css -o ./dist/styles/app.css --watch",
-    "dev": "parcel watch ./assets/scripts/**/**/**/*.js  --dist-dir ./dist/scripts/ && npx tailwindcss -i ./assets/styles/app.css -o ./dist/app.css --watch",
+    "build": "yarn build:parcel && yarn build:tailwind",
+    "build:parcel": "parcel build ./assets/scripts/**/**/**/*.js --dist-dir ./dist/scripts/",
+    "build:tailwind": "npx tailwindcss -i ./assets/styles/app.scss -o ./dist/styles/app.css",
+    "dev:parcel": "parcel watch ./assets/scripts/**/**/**/*.js  --dist-dir ./dist/scripts/",
+    "dev:tailwind": "npx tailwindcss -i ./assets/styles/app.css -o ./dist/styles/app.css --watch",
     "i18n:textdomain": "wpi18n addtextdomain --exclude=dist,node_modules,assets,tests,vendor",
     "i18n:pot": "wpi18n makepot --exclude=dist,node_modules,assets,tests,vendor"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2",
     "uuid": "^9.0.1"
   }
 }
