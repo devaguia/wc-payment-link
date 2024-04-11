@@ -6,7 +6,6 @@
 
  if ( ! defined( 'ABSPATH' ) ) exit; 
 
-$orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/></svg>'
 ?>
 
 <div class="wrap wpl-wrap px-8">
@@ -26,7 +25,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                     id="default-search"
                     class="block w-[180px] h-4 !p-4 !text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="<?php echo esc_attr__('Search for links', 'wc-payment-link'); ?>"
-                    value="<?php echo esc_attr__( isset($search) ? $search : '')?>"
+                    value="<?php echo esc_attr( isset($search) ? $search : '')?>"
                 />
             </div>
             <input type="hidden" value="wc-payment-link-links" name="page"/>
@@ -45,7 +44,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                     <div>
                         <a class="flex items-center cursor-pointer order-table" data-order="name">
                             <?php echo esc_html__('Link Name', 'wc-payment-link'); ?>
-                            <?php echo $orderBySvg ?>
+                            <i class="fa-solid fa-sort w-4 h-3 ml-1.5"></i>
                         </a>
                     </div>
                 </th>
@@ -53,7 +52,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                     <div>
                         <a class="flex items-center cursor-pointer order-table" data-order="expire_at">
                             <?php echo esc_html__('Expire at', 'wc-payment-link'); ?>
-                            <?php echo $orderBySvg ?>
+                            <i class="fa-solid fa-sort w-4 h-3 ml-1.5"></i>
                         </a>
                     </div>
                 </th>
@@ -61,7 +60,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                     <div>
                         <a class="flex items-center cursor-pointer order-table" data-order="token">
                             <?php echo esc_html__('Token', 'wc-payment-link'); ?>
-                            <?php echo $orderBySvg ?>
+                            <i class="fa-solid fa-sort w-4 h-3 ml-1.5"></i>
                         </a>
                     </div>
                 </th>
@@ -134,7 +133,7 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
             <nav aria-label="Page navigation example" class="mt-4 shadow-md rounded-md float-right">
                 <ul class="inline-flex -space-x-px text-base h-10">
                     <li>
-                        <a data-page="<?php echo $pagination['current'] - 1 ?: 1 ?>"
+                        <a data-page="<?php echo esc_attr($pagination['current'] - 1 ?: 1); ?>"
                            class="pagination ml-0 rounded-l-lg flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 bg-white border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <?php echo esc_html__('Previous', 'wc-payment-link');?>
                         </a>
@@ -142,16 +141,16 @@ $orderBySvg = '<svg class="w-4 h-3 ml-1.5" aria-hidden="true" xmlns="http://www.
                     <?php for($i = 1; $i <= $pagination['pages']; $i++): ?>
                         <li>
                             <?php $backgroundColor = $pagination['current'] === $i ? 'hover:bg-gray-100' : 'bg-white'; ?>
-                            <a data-page="<?php echo $i ?>"
+                            <a data-page="<?php echo esc_attr($i) ?>"
                                class="<?php echo esc_attr($backgroundColor); ?> pagination flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                             >
-                                <?php echo $i ?>
+                                <?php echo esc_html($i) ?>
                             </a>
                         </li>
                     <?php endfor; ?>
                     <li>
                     <li>
-                        <a data-page="<?php echo min( $pagination['current'] + 1, $pagination['pages']) ?>"
+                        <a data-page="<?php echo esc_attr(min( $pagination['current'] + 1, $pagination['pages'])) ?>"
                            class="pagination rounded-r-lg flex items-center justify-center hover:cursor-pointer px-[15px] h-10 leading-tight text-gray-500 bg-white border border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                         >
                             <?php echo esc_html__('Next', 'wc-payment-link');?>
