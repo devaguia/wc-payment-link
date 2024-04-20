@@ -2,17 +2,13 @@ name: Deploy to WordPress.org
 on:
   push:
     tags:
-      - "v*"
-  pull_request:
-    tags:
-      - "v*"
-
+      - "*"
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@master
 
       - name: WordPress Plugin Deploy
         uses: nk-o/action-wordpress-plugin-deploy@master
