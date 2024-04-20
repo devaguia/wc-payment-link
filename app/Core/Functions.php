@@ -68,6 +68,10 @@ class Functions
         if (!current_user_can('activate_plugins')) {
             return;
         }
+        
+        if (!isset($_REQUEST['action']) || !isset($_REQUEST['plugin'])) {
+            return;
+        }
 
         $action = filter_var($_REQUEST['action'], FILTER_SANITIZE_SPECIAL_CHARS);
         $plugin = filter_var($_REQUEST['plugin'], FILTER_SANITIZE_SPECIAL_CHARS);
