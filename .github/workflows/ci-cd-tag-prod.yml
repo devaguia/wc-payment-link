@@ -30,9 +30,12 @@ jobs:
           rm -r -f .parcel-cache/
           rm -r -f .idea/
           rm -r -f tests/
+          rm -r -f assets/scripts/
+          rm -r -f assets/styles/
 
       - name: Removing development files 🗑️
         run: |
+          rm -f composer.json
           rm -f composer.lock
           rm -f package.json
           rm -f package-json.lock
