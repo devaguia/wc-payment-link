@@ -3,10 +3,11 @@ Contributors: aguiart0
 Tags: setup
 Requires at least: 5.0
 Tested up to: 6.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 8.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Payment links for WooCommerce
 
 == Description ==
 Payment links for WooCommerce
@@ -15,7 +16,7 @@ Payment links for WooCommerce
 [Access README.md on our official github](https://github.com/devaguia/wc-payment-link)
 
 = Requisitos =
-- PHP version 7.4 or higher.
+- PHP version 8.0 or higher.
 
 == Installation ==
 1. Upload this plugin to your WordPress, and activate it;
@@ -26,6 +27,9 @@ Payment links for WooCommerce
 - Screenshots
 
 == Changelog ==
+
+= 1.0.0 = 21-04-2024
+* Fix: automation to wordpress.org deploy
 
 = 1.0.0 = 26-02-2024
 * Initial Release

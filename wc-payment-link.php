@@ -9,7 +9,7 @@
  * Version: 1.0.0
  *
  * @link    https://github.com/devaguia/
- * @since   1.0.0
+ * @since   1.0.1
  * @package WCPaymentLink
  */
 
