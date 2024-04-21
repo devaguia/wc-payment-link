@@ -1,4 +1,4 @@
-name: Generate github tag version ☕
+name: Generate new plugin tag version ☕
 
 on:
   push:
@@ -58,4 +58,15 @@ jobs:
           git tag -a v$TAG_VERSION -m "New tag: v$TAG_VERSION"
           git push origin v$TAG_VERSION
 
+          rm -r -f .git/
+
           echo "All right! 🍕"
+          
+      - name: WordPress Plugin Deploy 🌐
+        uses: nk-o/action-wordpress-plugin-deploy@master
+        env:
+          SVN_PASSWORD: ${{secrets.SVN_PASSWORD}}
+          SVN_USERNAME: ${{secrets.SVN_USERNAME}}
+          SOURCE_DIR: /
+          SLUG: wc-payment-links
+          ASSETS_DIR: assets
