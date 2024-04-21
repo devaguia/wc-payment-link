@@ -48,7 +48,7 @@ jobs:
         run: |
           TAG_VERSION=$(bash .github/tag.sh)
 
-          git checkout -b buid/branch_release_v$TAG_VERSION
+          git checkout -b build/branch_release_v$TAG_VERSION
 
           rm -r -f .github/
 
@@ -58,6 +58,6 @@ jobs:
           git add .
           git commit -am "build: building a new version"
 
-          git push origin buid/branch_release_v$TAG_VERSION
+          git push origin build/branch_release_v$TAG_VERSION
 
           echo "All right! 🍕"
