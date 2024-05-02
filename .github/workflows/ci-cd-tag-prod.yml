@@ -50,8 +50,6 @@ jobs:
 
           git checkout -b build/branch_release_v$TAG_VERSION
 
-          rm -r -f .github/
-
           git config --global user.email "matheus@aguia.dev"
           git config --global user.name "Matheus Aguiar"
 
