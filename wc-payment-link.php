@@ -6,7 +6,7 @@
  * Author:      Matheus Aguiar
  * Author URI:  https://github.com/devaguia/
  * License:     GPL v3 or later
- * Version: 1.0.2
+ * Version: 1.0.3
  *
  * @link    https://github.com/devaguia/
  * @since   1.0.1
